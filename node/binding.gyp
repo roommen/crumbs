@@ -12,6 +12,10 @@
 	{
 			'target_name': 'split',
 			'sources': [ 'mainSplit.cpp', 'split.cpp' ],
+	},
+	{
+			'target_name': 'join',
+			'sources': [ 'mainJoin.cpp', 'join.cpp' ],
 	}
 	]
 }
