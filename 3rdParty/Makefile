@@ -16,13 +16,11 @@ $(SQLITE_PATH):
 
 install:
 	cd $(SQLITE_PATH) && sudo make install
-	cp -f $(SQLITE_PATH)/sqlite3.o $(INSTALL_LIB_DIR)
 
 clean: clean-sqlite
 
 clean-sqlite:
 	cd $(SQLITE_PATH) && make clean
 	rm -Rf $(SQLITE_PATH)
-	rm -f $(INSTALL_LIB_DIR)/sqlite3.o
-	rm -f ~/$(CLOUDBREW_HASH_DBNAME)
-	rm -f ~/$(CLOUDBREW_HASH_DBNAME).log
+	rm -f ~/$(CRUMBS_DBNAME)
+	rm -f ~/$(CRUMBS_DBNAME).log
