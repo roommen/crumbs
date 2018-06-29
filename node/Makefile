@@ -1,16 +1,12 @@
-NODENAME = upload.node
-# NAME = index
-# JSNAME = $(NAME).js
+UPLOAD_NODENAME = upload.node
+DOWNLOAD_NODENAME = download.node
 
 binding:
 	node-gyp configure build
 	mkdir -p node_modules
-	cp build/Release/$(NODENAME) node_modules/.
-	# zip -r $(NAME).zip $(JSNAME) node_modules/
+	cp build/Release/$(UPLOAD_NODENAME) node_modules/.
+	cp build/Release/$(DOWNLOAD_NODENAME) node_modules/.
 
 clean:
 	node-gyp configure clean
-	# rm -Rf build
-	# rm -f $(NODENAME)
 	rm -rf node_modules
-	# rm -f $(NAME).zip
