@@ -29,26 +29,31 @@ const dummyGroupData = {
           firstname: 'Sergey',
           lastname: 'Brin',
           admin: false,
+          uri: 'https://randomuser.me/api/portraits/med/men/19.jpg'
         },{
           username: 'test_fb',
           firstname: 'Priscilla',
           lastname: 'Chan',
           admin: false,
+          uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
         },{
           username: 'svkmsr6',
           firstname: 'Souvik',
           lastname: 'Misra',
           admin: true,
+          uri: 'https://randomuser.me/api/portraits/thumb/men/65.jpg'
         },{
           username: 'gunnar_isk',
           firstname: 'Aron',
           lastname: 'Gunnarsson',
           admin: false,
+          uri: 'https://randomuser.me/api/portraits/med/men/88.jpg'
         },{
           username: 'aria_b',
           firstname: 'Ariana',
           lastname: 'Butcher',
           admin: false,
+          uri:'https://randomuser.me/api/portraits/thumb/women/95.jpg'
         }],
     },
     'alphabet_dudes':{
@@ -76,26 +81,31 @@ const dummyGroupData = {
           firstname: 'Sergey',
           lastname: 'Brin',
           admin: true,
+          uri: 'https://randomuser.me/api/portraits/med/men/19.jpg'
         },{
           username: 'barney_kim',
           firstname: 'Barnaby',
           lastname: 'Kim',
           admin: false,
+          uri: 'https://randomuser.me/api/portraits/men/90.jpg'
         },{
           username: 'svkmsr6',
           firstname: 'Souvik',
           lastname: 'Misra',
           admin: false,
+          uri: 'https://randomuser.me/api/portraits/thumb/men/65.jpg'
         },{
           username: 'gunnar_isk',
           firstname: 'Aron',
           lastname: 'Gunnarsson',
           admin: false,
+          uri: 'https://randomuser.me/api/portraits/med/men/88.jpg'
         },{
           username: 'aria_b',
           firstname: 'Ariana',
           lastname: 'Butcher',
           admin: false,
+          uri:'https://randomuser.me/api/portraits/thumb/women/95.jpg'
         }],
     },
     'react_users':{
@@ -128,26 +138,31 @@ const dummyGroupData = {
           firstname: 'Juan Pablo',
           lastname: 'Baldovino',
           admin: false,
+          uri: 'https://randomuser.me/api/portraits/men/64.jpg'
         },{
           username: 'test_fb',
           firstname: 'Priscilla',
           lastname: 'Chan',
           admin: true,
+          uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
         },{
           username: 'svkmsr6',
           firstname: 'Souvik',
           lastname: 'Misra',
           admin: true,
+          uri: 'https://randomuser.me/api/portraits/thumb/men/65.jpg'
         },{
           username: 'gunnar_isk',
           firstname: 'Aron',
           lastname: 'Gunnarsson',
           admin: false,
+          uri: 'https://randomuser.me/api/portraits/med/men/88.jpg'
         },{
           username: 'aria_b',
           firstname: 'Ariana',
           lastname: 'Butcher',
           admin: false,
+          uri:'https://randomuser.me/api/portraits/thumb/women/95.jpg'
         }],
     },
 };

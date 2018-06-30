@@ -24,7 +24,7 @@ export default class HomeScreen extends Component {
     const type = navigation.getParam('type', 'fb');
     const drive = navigation.getParam('drive', 'dropbox');
     //const driveImgUrl = (drive === 'dropbox') ? '../img/dropbox_logo.png':'../img/google_drive_logo.png';
-    const getLogo = () => (type === 'google') ? 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg' : 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg';
+    const getLogo = () => 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg';
     const logo = getLogo();
     const dummyUserData = getMockData();
     const userData = dummyUserData[username];
