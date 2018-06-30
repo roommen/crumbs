@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {getMockGroupData} from '../mockdata/dummyGroupData'
 import { StyleSheet, Text, View, FlatList, Image, TouchableHighlight} from 'react-native';
-import {List, ListItem, Badge} from 'react-native-elements';
+import {List, ListItem, Badge, SearchBar } from 'react-native-elements';
 
 const iconMapper = {
     picture: 'image',
@@ -12,6 +12,7 @@ const iconMapper = {
 
 export default class GroupScreen extends Component {
   render() {
+    console.disableYellowBox = true;
     const { navigation } = this.props;
     const userData = navigation.getParam('userData', {
         'groups':{
@@ -33,9 +34,23 @@ export default class GroupScreen extends Component {
         <Image source={{uri : logo}} style={{ padding: 30, marginBottom: 10 }}/>
         {
         (isUserAdmin) ? 
-          <Badge containerStyle={{ backgroundColor: '#75ff95' }}>
-            <Text>ADMIN</Text>
-          </Badge> :
+        <View>
+          <Badge containerStyle={{ backgroundColor: '#75ff95', width: 80, marginBottom: 20, alignSelf:'center' }}>
+            <Text style={{color: 'green'}}>ADMIN</Text>
+          </Badge>
+          <SearchBar
+            round
+            lightTheme
+            showLoading
+            platform="ios"
+            searchIcon={{ size: 24 }}
+            clearIcon={{ size: 24 }}
+            containerStyle={{width: 350}}
+            onChangeText={val => console.log(val)}
+            onClear={() => alert('Cleared')}
+            placeholder='Invite someone to the group...' 
+          />
+        </View>:
           null
         }
         <Text style={styles.greeting}>{currentGroupData.name}</Text>
@@ -44,7 +59,7 @@ export default class GroupScreen extends Component {
           <FlatList
             data={fileList}
             renderItem={({ item: file }) => (
-             <TouchableHighlight onLongPress={()=>alert(`Downloaded ${file.name}`)}>
+             <TouchableHighlight  key={file.id} onLongPress={()=>alert(`Downloaded ${file.name}`)}>
               <ListItem
                 topDivider
                 bottomDivider                

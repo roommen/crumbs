@@ -16,12 +16,14 @@ export default class HomeScreen extends Component {
   }
 
   render() {
+    console.disableYellowBox = true;
     const { navigation } = this.props;
     const username = navigation.getParam('username', 'DEFAULT_USERNAME');
     const firstname = navigation.getParam('firstname', 'DEFAULT_FIRSTNAME');
     const lastname = navigation.getParam('lastname', 'DEFAULT_LASTNAME');
     const type = navigation.getParam('type', 'fb');
     const drive = navigation.getParam('drive', 'dropbox');
+    //const driveImgUrl = (drive === 'dropbox') ? '../img/dropbox_logo.png':'../img/google_drive_logo.png';
     const getLogo = () => (type === 'google') ? 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg' : 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg';
     const logo = getLogo();
     const dummyUserData = getMockData();
@@ -30,11 +32,16 @@ export default class HomeScreen extends Component {
       id: groupID,
       title: userData['groups'][groupID].name,
       members: userData['groups'][groupID].membercount,
-      contribution: userData['groups'][groupID].contribution,      
+      contribution: userData['groups'][groupID].contribution,  
+      admin: userData['groups'][groupID].admin || false,  
     }));
     return (
       <View style={styles.container}>
         <Image source={{uri : logo}} style={{ padding: 30, marginBottom: 10 }}/>
+        { (drive === 'dropbox') ?
+          <Image source={require('../img/dropbox_logo.png')} style={{ height:50, width:50, padding: 30, marginBottom: 10 }}/>:
+          <Image source={require('../img/google_drive_logo.png')} style={{ height:50, width:50, padding: 30, marginBottom: 10 }}/>
+        }
         <View style={{ width: 100 }}>
           <Button
             onPress={() => navigation.push('Login')}
@@ -49,14 +56,16 @@ export default class HomeScreen extends Component {
           <FlatList
             data={groupsData}
             renderItem={({ item }) => (
-              <TouchableHighlight onPress={() => this.gotoGroup(userData, item.id, type, username)}>
+              <TouchableHighlight key={item.id} onPress={() => this.gotoGroup(userData, item.id, type, username)}>
               <ListItem
                 key={item.id}                
                 style={styles.content}
-                roundAvatar
+                topDivider
+                bottomDivider  
                 title={`${item.title}`}
                 subtitle={`Total ${item.members} members`}
-                avatar={{ uri: logo }}
+                leftIcon={{ name: 'group' }}
+                badge={(item.admin) ? { value: 'ADMIN', textStyle: { color: 'green' }, containerStyle: { backgroundColor: '#75ff95'} }: null}
               />
               </TouchableHighlight>
             )}

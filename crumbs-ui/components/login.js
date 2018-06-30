@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
+import { SocialIcon } from 'react-native-elements'
 import { getMockData } from '../mockdata/dummyUserData';
 
 export default class Login extends React.Component {
@@ -22,12 +23,12 @@ export default class Login extends React.Component {
       <Text style={styles.welcome}>WELCOME TO</Text>
       <Image source={require('../img/CRUMBS_LOGO.png')} style={{ padding: 30, marginBottom: 20 }}/>
       <View style={styles.button}>
-        <Button
-         onPress={() => this.gotoDrive('test_fb','facebook') }
-          title="Login with Facebook"
-          color="#09248e"
-          accessibilityLabel="Learn more"
-        />
+      <SocialIcon
+        title='Sign In With Facebook'
+        button
+        type='facebook'
+        onPress={() => this.gotoDrive('test_fb','facebook') }
+      />
       </View>
     </View>
     );
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
       fontFamily: 'sans-serif',
     },
     button:{
-      width: 200,
+      width: 300,
       marginBottom: 30,
     }
 });
