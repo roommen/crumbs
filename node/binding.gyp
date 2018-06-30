@@ -6,8 +6,8 @@
 		'sources': [ 'mainDownload.cpp', 'download.cpp' ],
 	},
 	{
-			'target_name': 'upload',
-			'sources': [ 'mainUpload.cpp', 'upload.cpp' ],
+		'target_name': 'upload',
+		'sources': [ 'mainUpload.cpp', 'upload.cpp' ],
 	}
 	]
 }
