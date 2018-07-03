@@ -47,7 +47,9 @@ export default class GroupScreen extends Component {
     const getLogo = () => 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg';
     const logo = getLogo();
     return (
-      <View style={styles.container}>
+      <ScrollView 
+        contentContainerStyle={styles.container}
+      >
         <Modal
           animationType="fade"
           transparent={false}
@@ -177,7 +179,7 @@ export default class GroupScreen extends Component {
             )}
           />
         </List>
-      </View>
+      </ScrollView>
     )
   }
 }
