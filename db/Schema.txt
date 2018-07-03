@@ -1,0 +1,24 @@
+===========================
+Proposed Schema for CRUMBS
+===========================
+
+TABLE NAME: users
+COLUMNS: [user_id(pk), uname, fname, user_pic, lname, drive, token]
+
+TABLE NAME: admin
+COLUMNS: [admin_id(pk), user_id(fk)]
+
+TABLE NAME: groups
+COLUMNS: [group_id(pk), admin_id(fk), group_name, members]
+
+TABLE NAME: files
+COLUMNS: [file_id(pk), group_id(fk), file_name, file_type, file_size]
+
+TABLE NAME: subscriptions
+COLUMNS: [sub_id(pk), group_id(fk), user_id(fk), contribution]
+
+TABLE NAME: threads
+COLUMNS: [thread_id(pk), group_id(fk), user_id(fk), status]
+
+TABLE NAME: uploads
+COLUMNS: [upload_id(pk), group_id(fk), user_id(fk), file_id]
