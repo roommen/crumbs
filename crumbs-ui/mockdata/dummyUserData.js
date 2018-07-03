@@ -7,6 +7,7 @@ const dummyUserData = {
                 name:'Global Developers',
                 membercount: 5,
                 contribution: 1.2,
+                admin: true
             },
             'alphabet_dudes':{
                 name:'Alphabet Dudes',
@@ -28,6 +29,7 @@ const dummyUserData = {
                 name:'React Users',
                 membercount: 5,
                 contribution: 1.8,
+                admin: true
             }
         }
     }
