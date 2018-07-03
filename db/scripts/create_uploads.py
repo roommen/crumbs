@@ -18,7 +18,6 @@ def create_uploads():
         print("Table subscriptions created successfully.")
         connection.close()
     except Exception as e:
-        # connection.rollback()
         print("Error occurred - ", e)
         connection.close()
 

@@ -15,7 +15,6 @@ def create_admin():
         print("Table admin created successfully.")
         connection.close()
     except Exception as e:
-        # connection.rollback()
         print("Error occurred - ", e)
         connection.close()
 

@@ -16,7 +16,6 @@ def create_files():
         print("Table files created successfully.")
         connection.close()
     except Exception as e:
-        # connection.rollback()
         print("Error occurred - ", e)
         connection.close()
 
