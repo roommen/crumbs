@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { getMockData } from '../mockdata/dummyUserData';
-import { StyleSheet, Text, View, Image, FlatList, Button, TouchableHighlight } from 'react-native';
-import {List, ListItem} from 'react-native-elements';
+import { StyleSheet, Text, View, Image, FlatList, TouchableHighlight, Modal, ScrollView } from 'react-native';
+import {Button, List, ListItem, FormLabel, FormInput, FormValidationMessage} from 'react-native-elements';
 
 export default class HomeScreen extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+       openOverlay: false,   
+       inputGroupName: '',   
+    };
+  }
 
   gotoGroup(userData, groupID, type, username){
     const { navigation } = this.props;
@@ -36,22 +43,73 @@ export default class HomeScreen extends Component {
       admin: userData['groups'][groupID].admin || false,  
     }));
     return (
-      <View style={styles.container}>
+      <ScrollView 
+        contentContainerStyle={styles.container}
+      >
+        <Modal
+          animationType="fade"
+          transparent={false}
+          visible={this.state.openOverlay}
+          onRequestClose={
+            () => this.setState({openOverlay:false})
+          }
+        >
+          <View style={{ flex: 1, justifyContent:'center', alignContent:'center'  }}>
+            <Text style={{ fontSize: 30, fontWeight: '600', textAlign:'center', width:360}}>CREATE YOUR GROUP</Text>
+            <FormLabel>Enter a group name</FormLabel>
+            <FormInput onChangeText={inputGroupName => this.setState({inputGroupName})}/>
+            <View style={{ width: 360, textAlign:'center' }}>
+              <Button
+                raised
+                large
+                buttonStyle={{
+                  backgroundColor: '#09248e',
+                  borderColor: "#09248e",
+                  borderWidth: 0
+                }}
+                icon={{
+                  name: 'create',
+                  size: 25,
+                  color: 'white'
+                }}
+                onPress={() => {
+                  if(!this.state.inputGroupName){
+                    alert('A group must have a name')
+                  } else {
+                    this.setState({openOverlay: false});
+                    alert('Created group '+this.state.inputGroupName)
+                  }                  
+                }}
+                title='CREATE GROUP' 
+              />
+            </View>
+          </View>
+        </Modal>
         <Image source={{uri : logo}} style={{ padding: 30, marginBottom: 10 }}/>
         { (drive === 'dropbox') ?
           <Image source={require('../img/dropbox_logo.png')} style={{ height:50, width:50, padding: 30, marginBottom: 10 }}/>:
           <Image source={require('../img/google_drive_logo.png')} style={{ height:50, width:50, padding: 30, marginBottom: 10 }}/>
         }
-        <View style={{ width: 100 }}>
+        <View style={{ width: 270 }}>
           <Button
-            onPress={() => navigation.push('Login')}
-            title="Back"
-            color={(type === 'google') ? '#db0f0f' : '#09248e'}
-            accessibilityLabel="Learn more"
+            raised
+            large
+            buttonStyle={{
+              backgroundColor: '#09248e',
+              borderColor: "#09248e",
+              borderWidth: 0
+            }}
+            icon={{
+              name: 'create',
+              size: 25,
+              color: 'white'
+            }}
+            onPress={() => this.setState({openOverlay: true})}
+            title='CREATE A GROUP' 
           />
         </View>
         <Text style={styles.greeting}>{`Welcome ${firstname} ${lastname}`}</Text>
-        <Text style={styles.message}>Your subscribed groups are listed below</Text>
+        <Text style={styles.message}>Your groups are listed below</Text>
         <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0, width: 350}}>
           <FlatList
             data={groupsData}
@@ -71,7 +129,7 @@ export default class HomeScreen extends Component {
             )}
           />
         </List>
-        </View>
+        </ScrollView>
     )
   }
 }
