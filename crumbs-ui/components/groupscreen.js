@@ -10,6 +10,8 @@ const iconMapper = {
     music: 'music-note',
 };
 
+const MAX_USERS_SIZE = 5;
+
 export default class GroupScreen extends Component {
   constructor(props){
     super(props);
@@ -41,7 +43,7 @@ export default class GroupScreen extends Component {
     const currentGroupData = userData.groups[groupID];
     const currentGroupDetails = getMockGroupData()[groupID];
     const fileList = currentGroupDetails.files;
-    const memberList = currentGroupDetails.members;
+    const memberList = currentGroupDetails.members.slice(0,3);
     const isUserAdmin = memberList.filter(member => member.username === username)[0].admin;
     const type = navigation.getParam('type', 'fb');
     const getLogo = () => 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg';
@@ -86,10 +88,16 @@ export default class GroupScreen extends Component {
                       checked={this.state.selectedUsers.includes(u)}
                       onPress={
                         evt => {
-                          //alert(evt.target.checked);
                           let {selectedUsers} = this.state;
-                          if(!selectedUsers.includes(u)){
-                            selectedUsers.push(u);
+                          if(!selectedUsers.includes(u)){  
+                            //(MAX_USERS_SIZE - selectedUsers.length > 0)                          
+                            if(MAX_USERS_SIZE - memberList.length - selectedUsers.length > 0){
+                              selectedUsers.push(u);
+                            } else {
+                              alert(
+                                `A group must have maximum ${MAX_USERS_SIZE} members.`
+                              );
+                            }                           
                           } else {
                             let index = selectedUsers.indexOf(u);
                             selectedUsers.splice(index,1);
@@ -138,7 +146,7 @@ export default class GroupScreen extends Component {
            ))
          }
          {
-           (isUserAdmin) ?
+           (isUserAdmin && memberList.length < MAX_USERS_SIZE) ?
             <Button
               raised
               buttonStyle={{
