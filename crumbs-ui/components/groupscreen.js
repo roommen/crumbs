@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {getMockGroupData} from '../mockdata/dummyGroupData'
+import {getMockGroupData} from '../mockdata/dummyGroupData';
 import { StyleSheet, View, FlatList, Text, Image, TouchableHighlight, Modal, ScrollView} from 'react-native';
 import {List, ListItem, Badge, Avatar, Button, SearchBar, Card, SocialIcon, CheckBox} from 'react-native-elements';
 
@@ -19,6 +19,7 @@ export default class GroupScreen extends Component {
        openOverlay: false,
        searchTerm:'',
        users:[],
+       file: null,
        selectedUsers:[]
     };
   }
@@ -27,6 +28,10 @@ export default class GroupScreen extends Component {
     fetch('https://randomuser.me/api/?results=10')
     .then(resp => resp.json())
     .then(data => this.setState({users: data.results}))
+  }
+
+  openDocumentPicker(){
+    alert('Upload files');
   }
 
   render() {
@@ -187,6 +192,24 @@ export default class GroupScreen extends Component {
             )}
           />
         </List>
+        <View style={{ width: 270, marginTop: 20 }}>
+          <Button
+            raised
+            large
+            buttonStyle={{
+              backgroundColor: '#09248e',
+              borderColor: "#09248e",
+              borderWidth: 0
+            }}
+            icon={{
+              name: 'file-upload',
+              size: 25,
+              color: 'white'
+            }}
+            onPress={() => this.openDocumentPicker()}
+            title='UPLOAD A FILE' 
+          />
+        </View>
       </ScrollView>
     )
   }
@@ -199,6 +222,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
         paddingTop: 20,
+        overflow: 'scroll'
     },
     greeting:{
       fontSize: 40,
