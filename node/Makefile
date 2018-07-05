@@ -1,6 +1,8 @@
 UPLOAD_NODENAME = upload.node
 DOWNLOAD_NODENAME = download.node
 
+all: binding
+
 binding:
 	node-gyp configure build
 	mkdir -p node_modules
