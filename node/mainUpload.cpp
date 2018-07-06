@@ -18,9 +18,9 @@ void wrapperUploadFile(const FunctionCallbackInfo<Value>& args) {
 
 	Upload up;
 	std::cout << up.createTempUserDir(str_user_id) << std::endl;
-	// std::cout << up.splitFile(str_user_id, str_fileName, str_groupAccountsJSON) << std::endl;
-	// std::cout << up.cleanupOriginalFile(str_user_id, str_fileName) << std::endl;
-	// std::cout << up.getSplitFileInfo(str_user_id) << std::endl;
+	std::cout << up.splitFile(str_user_id, str_fileName, str_groupAccountsJSON) << std::endl;
+	std::cout << up.cleanupOriginalFile(str_user_id, str_fileName) << std::endl;
+	std::cout << up.getSplitFileInfo(str_user_id) << std::endl;
 
 	// args.GetReturnValue().Set(String::NewFromUtf8(isolate, up.createTempUserDir(str_user_id)));s
 	// args.GetReturnValue().Set(String::NewFromUtf8(isolate, up.splitFile(str_user_id, str_fileName, str_groupAccountsJSON)));
