@@ -110,7 +110,7 @@ export default class HomeScreen extends Component {
         </View>
         <Text style={styles.greeting}>{`Welcome ${firstname} ${lastname}`}</Text>
         <Text style={styles.message}>Your groups are listed below</Text>
-        <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0, width: 350}}>
+        <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0, width: 350, marginBottom: 90}}>
           <FlatList
             data={groupsData}
             renderItem={({ item }) => (
@@ -136,7 +136,7 @@ export default class HomeScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 2,
+      // flex: 2,
       backgroundColor: '#cedded',
       alignItems: 'center',
       justifyContent: 'flex-start',

@@ -192,7 +192,7 @@ export default class GroupScreen extends Component {
             )}
           />
         </List>
-        <View style={{ width: 270, marginTop: 20 }}>
+        <View style={{ width: 270, marginTop: 20, marginBottom: 20 }}>
           <Button
             raised
             large
@@ -217,12 +217,13 @@ export default class GroupScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 2,
+        // flex: 1,
         backgroundColor: '#cedded',
         alignItems: 'center',
         justifyContent: 'flex-start',
         paddingTop: 20,
-        overflow: 'scroll'
+        //height: 400,
+        // overflow: 'scroll'
     },
     greeting:{
       fontSize: 40,

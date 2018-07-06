@@ -21,7 +21,7 @@ export default class Login extends React.Component {
     return (
     <View style={styles.container}>
       <Text style={styles.welcome}>WELCOME TO</Text>
-      <Image source={require('../img/CRUMBS_LOGO.png')} style={{ padding: 30, marginBottom: 20 }}/>
+      <Image source={require('../img/CRUMBS_LOGO.png')} style={{ padding: 60, marginBottom: 20, width: 190, height: 40 }}/>
       <View style={styles.button}>
       <SocialIcon
         title='Sign In With Facebook'
