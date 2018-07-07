@@ -124,3 +124,5 @@ const char* Upload::getSplitFileInfo(string user_id) {
     string retJSON = strBuf.GetString();
     return retJSON.c_str();
 }
+
+//This also needs clean up of shreds which will be inherited from common file class
