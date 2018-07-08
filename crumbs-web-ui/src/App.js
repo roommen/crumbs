@@ -1,18 +1,50 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Header from './components/header/header';
+import Body from './components/body/body';
 import './App.css';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      isAuthenticated: true,
+      isLinked: true,
+    };
+  }
+
+  handleLogin(){
+    this.setState({isAuthenticated: true});
+  }
+
+  handleLogout(){
+    this.setState({isAuthenticated: false});
+  }
+
+  handleLink(){
+    this.setState({isLinked: true});
+  }
+
+  handleUnlink(){
+    this.setState({isLinked: false});
+  }
+
+
+
   render() {
+    const {isAuthenticated, isLinked} = this.state;
+    // const authText = (!isAuthenticated) ? 'Login' : 'Logout';
+    
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Header />
+        <Body
+          isAuthenticated={isAuthenticated} 
+          isLinked={isLinked}
+          handleLogin={() => this.handleLogin()}
+          handleLogout={() => this.handleLogout()} 
+          handleLink={() => this.handleLink()}
+          handleUnlink={() => this.handleUnlink()}
+         /> 
       </div>
     );
   }
