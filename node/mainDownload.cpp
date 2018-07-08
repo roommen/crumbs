@@ -12,6 +12,7 @@ void wrapperDownloadFile(const FunctionCallbackInfo<Value>& args) {
 	Download down;
 
 	args.GetReturnValue().Set(String::NewFromUtf8(isolate, down.joinFile(str_fileName)));
+	// start from here and complete the same things like mainUpload.cpp
 }
 
 void init(Local<Object> exports) {

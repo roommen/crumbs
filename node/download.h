@@ -1,7 +1,9 @@
 #ifndef DOWNLOAD_H
 #define DOWNLOAD_H
 
-class Download {
+#include "fileHandling.h"
+
+class Download: public FileHandling {
 public:
     const char* joinFile(std::string fileName);
 };
