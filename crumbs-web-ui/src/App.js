@@ -7,8 +7,8 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isAuthenticated: false,
-      isLinked: false,
+      isAuthenticated: true,
+      isLinked: true,
     };
   }
 
@@ -37,8 +37,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <div className="App-body">
-         <Body
+        <Body
           isAuthenticated={isAuthenticated} 
           isLinked={isLinked}
           handleLogin={() => this.handleLogin()}
@@ -46,7 +45,6 @@ class App extends Component {
           handleLink={() => this.handleLink()}
           handleUnlink={() => this.handleUnlink()}
          /> 
-        </div>        
       </div>
     );
   }

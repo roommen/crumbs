@@ -8,14 +8,6 @@ export default class Home extends Component {
     return (
       <div>
         <p>Home</p>
-        <div style={{display:'flex', justifyContent:'space-evenly'}}>
-          <Button variant="contained" size="small" color="default" onClick={() => handleLogout()}>
-            LOGOUT
-          </Button>
-          <Button variant="contained" size="small" color="primary" onClick={() => <Redirect to="/group/108" />}>
-            GROUP
-          </Button>
-        </div>
       </div>
     )
   }

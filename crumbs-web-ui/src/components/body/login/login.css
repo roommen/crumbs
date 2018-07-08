@@ -1,0 +1,21 @@
+.App-body {    
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.login-header {
+    background-color: rgba(16, 54, 136, 0.685);
+    height: 30px;
+    padding: 30px;
+    color: white;
+    font-size: 24px;
+
+}
+
+.form-container {
+    border: 2px grey solid;
+    margin: 10px;
+    padding: 10px;
+    width: 35%;
+}

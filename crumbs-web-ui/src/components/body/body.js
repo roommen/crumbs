@@ -8,101 +8,94 @@ import Group from './group/group';
 export default class Body extends Component {
   render() {
     const {isAuthenticated, isLinked, handleLink, handleLogin, handleLogout, handleUnlink} = this.props;
-
-    const PrivateRoute = ({ component: Component, ...rest }) => (
-        <Route {...rest} render={(props) => (
-            (rest.isAuthenticated)?
-            (rest.isLinked) ?
-            <Component 
-              {...props} 
-              isLinked={isLinked}
-              handleLogin={() => handleLogin()}
-              handleLogout={() => handleLogout()} 
-              handleLink={() => handleLink()}
-              handleUnlink={() => handleUnlink()}  
-            />:
-            <Redirect 
-             to='/drive/108' 
-            />:
-            <Login
-              {...props}
-              isLinked={isLinked}
-              handleLogin={() => handleLogin()}
-              handleLogout={() => handleLogout()} 
-              handleLink={() => handleLink()}
-              handleUnlink={() => handleUnlink()}  
-            />
-        )} />
-    );
-
-    const PrivateDriveRoute = ({ component: Component, ...rest }) => (
-      <Route {...rest} render={(props) => (
-          (isAuthenticated)?
-          <Component 
-           {...props} 
-           isLinked={isLinked}
-            handleLogin={() => handleLogin()}
-            handleLogout={() => handleLogout()} 
-            handleLink={() => handleLink()}
-            handleUnlink={() => handleUnlink()}  
-          />:
-          <Login
-            isLinked={isLinked}
-            handleLogin={() => handleLogin()}
-            handleLogout={() => handleLogout()} 
-            handleLink={() => handleLink()}
-            handleUnlink={() => handleUnlink()}  
-          />
-      )} 
-    />
-  );
-
     return (
-      <div>
+      <div className="App-body">
         <Switch> 
-            <PrivateRoute 
-                exact
-                path="/"                
-                component={Home}
-                isAuthenticated={isAuthenticated} 
-                isLinked={isLinked}
-                handleLogin={() => handleLogin()}
-                handleLogout={() => handleLogout()} 
-                handleLink={() => handleLink()}
-                handleUnlink={() => handleUnlink()} 
+          <Route 
+           exact
+           path="/"
+           render={
+             props => {
+               if(isAuthenticated){
+                 if(isLinked){
+                  return <Redirect to="/home" />
+                 } else {
+                  return <Redirect to="/drive/123" />
+                 }
+               } else {
+                 return <Redirect to="/login" />
+               }
+             }
+           }
+          />
+          <Route 
+           exact 
+           path="/login" 
+           //component={Login}
+           render={
+             props => 
+             <Login
+              {...props} 
+              isAuthenticated={isAuthenticated} 
+              isLinked={isLinked}
+              handleLogin={() => handleLogin()}
+              handleLogout={() => handleLogout()} 
+              handleLink={() => handleLink()}
+              handleUnlink={() => handleUnlink()}
+             />
+            } 
+          />
+          <Route 
+            path="/home" 
+            //component={Home}
+            render={
+              props => 
+              <Home
+              {...props}
+              isAuthenticated={isAuthenticated} 
+              isLinked={isLinked}
+              handleLogin={() => handleLogin()}
+              handleLogout={() => handleLogout()} 
+              handleLink={() => handleLink()}
+              handleUnlink={() => handleUnlink()} 
+              />
+             }  
+          />
+          <Route 
+           path="/drive/:driveID" 
+           //component={Drive}
+           render={
+            props => 
+            <Drive
+              {...props}
+              isAuthenticated={isAuthenticated} 
+              isLinked={isLinked}
+              handleLogin={() => handleLogin()}
+              handleLogout={() => handleLogout()} 
+              handleLink={() => handleLink()}
+              handleUnlink={() => handleUnlink()}
             />
-            <PrivateRoute 
-                path="/home" 
-                component={Home}
-                isAuthenticated={isAuthenticated} 
-                isLinked={isLinked}
-                handleLogin={() => handleLogin()}
-                handleLogout={() => handleLogout()} 
-                handleLink={() => handleLink()}
-                handleUnlink={() => handleUnlink()} 
+           }  
+          />
+          <Route 
+           path="/group/:groupID" 
+           //component={Group} 
+           render={
+            props =>
+            <Group 
+              {...props}
+              isAuthenticated={isAuthenticated} 
+              isLinked={isLinked}
+              handleLogin={() => handleLogin()}
+              handleLogout={() => handleLogout()} 
+              handleLink={() => handleLink()}
+              handleUnlink={() => handleUnlink()}
             />
-            <PrivateDriveRoute 
-                path="/drive/:userID" 
-                component={Drive} 
-                isAuthenticated={isAuthenticated} 
-                isLinked={isLinked}
-                handleLogin={() => handleLogin()}
-                handleLogout={() => handleLogout()} 
-                handleLink={() => handleLink()}
-                handleUnlink={() => handleUnlink()}
-            />
-            <PrivateRoute 
-                path="/group/:groupID" 
-                component={Group} 
-                isAuthenticated={isAuthenticated} 
-                isLinked={isLinked}
-                handleLogin={() => handleLogin()}
-                handleLogout={() => handleLogout()} 
-                handleLink={() => handleLink()}
-                handleUnlink={() => handleUnlink()}
-            />        
-          </Switch>
-      </div>
+           } 
+          />
+          <Route />         
+        </Switch>
+      </div>      
     )
   }
 }
