@@ -46,6 +46,7 @@ export default class Body extends Component {
             } 
           />
           <Route 
+            exact
             path="/home" 
             //component={Home}
             render={

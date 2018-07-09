@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './components/header/header';
 import Body from './components/body/body';
+import Checkbox from '@material-ui/core/Checkbox';
 import './App.css';
 
 class App extends Component {
@@ -37,6 +38,19 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
+        {/* <Checkbox 
+          checked={isAuthenticated}
+          onChange={() => this.setState({isAuthenticated:!isAuthenticated})}
+          value="AUTHENTICATED"
+        />
+        Is Authenticated?
+        <br/>
+        <Checkbox 
+          checked={isLinked}
+          onChange={() => this.setState({isLinked:!isLinked})}
+          value="LINKED"
+        />
+        Is Linked? */}
         <Body
           isAuthenticated={isAuthenticated} 
           isLinked={isLinked}
