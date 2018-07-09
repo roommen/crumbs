@@ -6,7 +6,7 @@
 .App-drive{
     display: flex;
     flex-direction: column;
-    /* border: 1px solid grey; */
+    /* border: 1px solid grey; */    
     justify-content: space-between;
     align-self: center;
     width: 80%;    
