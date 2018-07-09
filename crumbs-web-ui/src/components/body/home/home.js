@@ -73,10 +73,10 @@ export default class Home extends Component {
     const {handleLogout} = this.props;
     return (
       <div className="App-home">
-         <Dialog
+        <Dialog
           open={this.state.isOpen}
           onClose={() => this.setState({isOpen:false})}
-        >
+         >
           <DialogTitle>CREATE GROUP</DialogTitle>
           <Divider />
           <DialogContent>
