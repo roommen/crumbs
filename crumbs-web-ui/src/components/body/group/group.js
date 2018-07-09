@@ -33,32 +33,9 @@ const typeMap = {
   video:<VideoIcon />,
 };
 
-let files = [
-  {
-    id:6876865,
-    name:'DesignGuidelines.pdf',
-    type:'doc',
-    size: 6.4,
-  },
-  {
-    id:23443546,
-    name:'FlowDiagram.png',
-    type:'image',
-    size: 3.4,
-  },
-  {
-    id:9897877,
-    name:'HighFreq.mp3',
-    type:'sound',
-    size: 0.7,
-  },
-  {
-    id:76453644,
-    name:'SuperNova.mp4',
-    type:'video',
-    size: 2.5,
-  }
-];
+const extensionMap = {
+  'application/pdf' :'doc'
+};
 
 export default class Group extends Component {
   constructor(props){
@@ -66,6 +43,32 @@ export default class Group extends Component {
     this.state={
       members: [],
       users:[],
+      files:[
+        {
+          id:6876865,
+          name:'DesignGuidelines.pdf',
+          type:'doc',
+          size: 6.4,
+        },
+        {
+          id:23443546,
+          name:'FlowDiagram.png',
+          type:'image',
+          size: 3.4,
+        },
+        {
+          id:9897877,
+          name:'HighFreq.mp3',
+          type:'sound',
+          size: 0.7,
+        },
+        {
+          id:76453644,
+          name:'SuperNova.mp4',
+          type:'video',
+          size: 2.5,
+        }
+      ],
       isAdmin: true,
       isOpen: false,
     }
@@ -88,6 +91,18 @@ export default class Group extends Component {
     let newstate = this.state;
     newstate.members.push(...newstate.invitees);
     newstate.isOpen = false;
+    this.setState(newstate);
+  }
+
+  handleFileUpload(){
+    let newstate = this.state;
+    let fileObj = this.newFile.files[0];
+    newstate.files.push({
+      id: fileObj.size,
+      name: fileObj.name,
+      size: (fileObj.size/1000).toFixed(2),
+      type: extensionMap[fileObj.type]
+    });
     this.setState(newstate);
   }
 
@@ -183,15 +198,15 @@ export default class Group extends Component {
         {/* <div className="group-list"> */}
           <List>
           {
-            files.map(
+            this.state.files.map(
               (file,id) => (
-                <div>
-                 <ListItem key={id} button>
+                <div key={id} >
+                 <ListItem button>
                    <ListItemIcon>
                     {typeMap[file.type]}
                    </ListItemIcon>
                    <ListItemText primary={file.name} secondary={`${file.size} MB`} />  
-                   <ListItemIcon>
+                   <ListItemIcon onClick={() => alert('Downloaded')}>
                     <DownloadIcon />
                    </ListItemIcon>
                    <ListItemIcon>
@@ -206,8 +221,10 @@ export default class Group extends Component {
           </List>
           <input
             id="upload-file"
+            ref={newFile => this.newFile = newFile}
             multiple
             type="file"
+            onChange={() => this.handleFileUpload()}
             style={{display:'none'}}
           />
           <label htmlFor="upload-file">
