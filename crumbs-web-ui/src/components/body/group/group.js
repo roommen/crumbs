@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
@@ -8,6 +9,8 @@ import AddIcon from '@material-ui/icons/Add';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import DownloadIcon from '@material-ui/icons/FileDownload';
+import ShareIcon from '@material-ui/icons/Share';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -50,6 +53,7 @@ export default class Group extends Component {
     this.state={
       members: [],
       isAdmin: true,
+      isOpen: false,
     }
   }
 
@@ -69,6 +73,14 @@ export default class Group extends Component {
       <div className="App-group-container">
         <header className="group-header">
           <div>TEAM 456</div>
+          {
+            (isAdmin)?
+            <Chip
+              label="ADMIN"
+              className="admin-badge"                      
+            />:
+            null
+          }   
           <div style={{display:'flex', cursor:'pointer'}}>
             {
               members.map(
@@ -82,35 +94,46 @@ export default class Group extends Component {
                 )
               )
             }
+            {
+              (isAdmin)?
+              <Button 
+                variant="fab" 
+                color="primary" 
+                aria-label="add" 
+                className="create-group"
+                onClick={() => this.setState({isOpen:true})}
+              >
+                <AddIcon />
+              </Button>:
+              null
+            }
           </div>
         </header>
-        <div className="group-list">
-          {/* <List>
+        {/* <div className="group-list"> */}
+          <List>
           {
             files.map(
               (file,id) => (
-                <div className="group-hover" style={{cursor:'pointer'}}>
-                 <ListItem key={id}>
-                    <Avatar>
-                      <Group />
-                    </Avatar>
-                    <ListItemText primary={file.name} secondary={`${file.size} MB`} /> 
-                    {
-                      (isAdmin)?
-                      <Chip
-                        label="ADMIN"
-                        className="admin-badge"                      
-                      />:
-                      null
-                    }                 
-                  </ListItem>                  
-                  <Divider />
+                <div 
+                 //className="group-hover" 
+                 //style={{cursor:'pointer'}}
+                 >
+                 <ListItem key={id} button>
+                   <ListItemText primary={file.name} secondary={`${file.size} MB`} />  
+                   <ListItemIcon>
+                    <DownloadIcon />
+                   </ListItemIcon>
+                   <ListItemIcon>
+                    <ShareIcon />
+                   </ListItemIcon>                                
+                 </ListItem>                  
+                 <Divider />
                 </div>
               )
             )
           }
-          </List> */}
-        </div>
+          </List>
+        {/* </div> */}
       </div>
     )
   }
