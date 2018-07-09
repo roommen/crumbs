@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+//import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import './home.css';
 
@@ -114,8 +114,8 @@ export default class Home extends Component {
           {
             groups.map(
               (group,id) => (
-                <div className="group-hover" style={{cursor:'pointer'}} onClick={() => this.props.history.push('/group/456')}>
-                 <ListItem key={id}>
+                <div onClick={() => this.props.history.push('/group/456')}>
+                 <ListItem key={id} button>
                     <Avatar>
                       <Group />
                     </Avatar>
