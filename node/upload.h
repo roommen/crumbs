@@ -9,7 +9,4 @@ public:
     const char* getSplitFileInfo(std::string user_id);
 };
 
-const std::string TEMP_CRUMBS = "/tmp/crumbs/";
-const int MAX_ACCOUNTS = 5;
-
 #endif /* UPLOAD_H */
