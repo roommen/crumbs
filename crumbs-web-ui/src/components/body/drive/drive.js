@@ -9,7 +9,6 @@ export default class Drive extends Component {
     const {handleLink, handleUnlink, history} = this.props;
     const drives = [
       {title:'Google Drive', url:'/img/gdrive.png'},
-      //{title:'One Drive', url:'/img/onedrive.png'},
       {title:'Dropbox', url:'/img/dropbox.png'}
     ];
     return (
@@ -23,7 +22,7 @@ export default class Drive extends Component {
               <Button
                 style={{marginTop: 10}} 
                 onClick={
-                  () => this.props.history.push('/home')
+                  () => handleLink()
                 } 
                 variant="contained" 
                 color="primary"

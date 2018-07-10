@@ -5,6 +5,44 @@ import Home from './home/home';
 import Drive from './drive/drive';
 import Group from './group/group';
 
+const PrivateRoute = ({ component:Component, isAuthenticated, isLinked, ...rest }) => 
+(
+  <Route
+    {...rest}
+    render={
+      (props) => 
+      (isAuthenticated === true)
+      ?(isLinked === true)
+        ?<Component {...props} {...rest} isAuthenticated={isAuthenticated} isLinked={isLinked} />
+        :<Redirect 
+          to="/drive/123" 
+         />
+      : <Redirect 
+          to="/login"
+        />
+    }
+  />
+);
+
+const PrivateDriveRoute = ({ component:Component, isAuthenticated, isLinked, ...rest }) => 
+(
+  <Route
+    {...rest}
+    render={
+      (props) => 
+      (isAuthenticated === true)
+      ?(isLinked === true)
+       ?<Redirect 
+          to="/home"
+        />
+       :<Component {...props} {...rest} isAuthenticated={isAuthenticated} isLinked={isLinked} />
+      :<Redirect 
+          to="/login"
+        />
+    }
+  />
+);
+
 export default class Body extends Component {
   render() {
     const {isAuthenticated, isLinked, handleLink, handleLogin, handleLogout, handleUnlink} = this.props;
@@ -31,68 +69,58 @@ export default class Body extends Component {
           <Route 
            exact 
            path="/login" 
-           //component={Login}
            render={
-             props => 
-             <Login
-              {...props} 
-              isAuthenticated={isAuthenticated} 
-              isLinked={isLinked}
-              handleLogin={() => handleLogin()}
-              handleLogout={() => handleLogout()} 
-              handleLink={() => handleLink()}
-              handleUnlink={() => handleUnlink()}
-             />
+             props => {
+              if(isAuthenticated){
+                if(isLinked){
+                 return <Redirect to="/home" />
+                } else {
+                 return <Redirect to="/drive/123" />
+                }
+              } else {
+                return <Login
+                    {...props} 
+                    isAuthenticated={isAuthenticated} 
+                    isLinked={isLinked}
+                    handleLogin={() => handleLogin()}
+                    handleLogout={() => handleLogout()} 
+                    handleLink={() => handleLink()}
+                    handleUnlink={() => handleUnlink()}
+                />
+              }
+             }            
             } 
           />
-          <Route 
+          <PrivateRoute 
             exact
             path="/home" 
-            //component={Home}
-            render={
-              props => 
-              <Home
-              {...props}
-              isAuthenticated={isAuthenticated} 
-              isLinked={isLinked}
-              handleLogin={() => handleLogin()}
-              handleLogout={() => handleLogout()} 
-              handleLink={() => handleLink()}
-              handleUnlink={() => handleUnlink()} 
-              />
-             }  
+            component={Home}
+            isAuthenticated={isAuthenticated} 
+            isLinked={isLinked}
+            handleLogin={() => handleLogin()}
+            handleLogout={() => handleLogout()} 
+            handleLink={() => handleLink()}
+            handleUnlink={() => handleUnlink()}            
           />
-          <Route 
+          <PrivateDriveRoute 
            path="/drive/:driveID" 
-           //component={Drive}
-           render={
-            props => 
-            <Drive
-              {...props}
-              isAuthenticated={isAuthenticated} 
-              isLinked={isLinked}
-              handleLogin={() => handleLogin()}
-              handleLogout={() => handleLogout()} 
-              handleLink={() => handleLink()}
-              handleUnlink={() => handleUnlink()}
-            />
-           }  
+           component={Drive}
+           isAuthenticated={isAuthenticated} 
+           isLinked={isLinked}
+           handleLogin={() => handleLogin()}
+           handleLogout={() => handleLogout()} 
+           handleLink={() => handleLink()}
+           handleUnlink={() => handleUnlink()}
           />
-          <Route 
-           path="/group/:groupID" 
-           //component={Group} 
-           render={
-            props =>
-            <Group 
-              {...props}
-              isAuthenticated={isAuthenticated} 
-              isLinked={isLinked}
-              handleLogin={() => handleLogin()}
-              handleLogout={() => handleLogout()} 
-              handleLink={() => handleLink()}
-              handleUnlink={() => handleUnlink()}
-            />
-           } 
+          <PrivateRoute 
+            path="/group/:groupID" 
+            component={Group} 
+            isAuthenticated={isAuthenticated} 
+            isLinked={isLinked}
+            handleLogin={() => handleLogin()}
+            handleLogout={() => handleLogout()} 
+            handleLink={() => handleLink()}
+            handleUnlink={() => handleUnlink()}
           />
           <Route />         
         </Switch>

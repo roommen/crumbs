@@ -8,8 +8,8 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isAuthenticated: true,
-      isLinked: true,
+      isAuthenticated: false,
+      isLinked: false,
     };
   }
 
@@ -38,19 +38,6 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        {/* <Checkbox 
-          checked={isAuthenticated}
-          onChange={() => this.setState({isAuthenticated:!isAuthenticated})}
-          value="AUTHENTICATED"
-        />
-        Is Authenticated?
-        <br/>
-        <Checkbox 
-          checked={isLinked}
-          onChange={() => this.setState({isLinked:!isLinked})}
-          value="LINKED"
-        />
-        Is Linked? */}
         <Body
           isAuthenticated={isAuthenticated} 
           isLinked={isLinked}
