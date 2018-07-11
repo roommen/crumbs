@@ -9,7 +9,7 @@ def create_subscriptions():
         cursor = connection.cursor()
         cursor.execute('''
             CREATE TABLE subscriptions(sub_id INTEGER PRIMARY KEY, group_id INTEGER,
-                user_id INTEGER, contribution TEXT,
+                user_id INTEGER, contribution INTEGER,
                 FOREIGN KEY(group_id) REFERENCES groups(group_id),
                 FOREIGN KEY(user_id) REFERENCES users(user_id))
         ''')
