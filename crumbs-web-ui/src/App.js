@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import Header from './components/header/header';
 import Body from './components/body/body';
+import Checkbox from '@material-ui/core/Checkbox';
 import './App.css';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isAuthenticated: true,
-      isLinked: true,
+      isAuthenticated: false,
+      isLinked: false,
     };
   }
 

@@ -16,14 +16,15 @@ export default class Login extends Component {
   }
 
   onLogin(){
-    const {isLinked, history} = this.props;
+    const {isAuthenticated, isLinked, history, handleLogin} = this.props;
     const {state} = this;
+    handleLogin();
     //alert(state.password);
-    if(isLinked){
-      history.push('/home');
-    } else {
-      history.push('/drive/123');
-    }    
+    // if(isLinked){
+    //   history.push('/home');
+    // } else {
+    //   history.push('/drive/123');
+    // }    
   }
 
   render() {
