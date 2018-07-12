@@ -4,6 +4,7 @@ import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
+import FacebookLogin from 'react-facebook-login';
 import './login.css';
 
 export default class Login extends Component { 
@@ -15,16 +16,15 @@ export default class Login extends Component {
     };
   }
 
-  onLogin(){
+  onLogin(resp){
     const {isAuthenticated, isLinked, history, handleLogin} = this.props;
     const {state} = this;
-    handleLogin();
-    //alert(state.password);
-    // if(isLinked){
-    //   history.push('/home');
-    // } else {
-    //   history.push('/drive/123');
-    // }    
+    console.log(resp);
+    if(resp.status === 'unknown'){
+      
+    } else {
+      handleLogin();
+    }    
   }
 
   render() {
@@ -34,35 +34,18 @@ export default class Login extends Component {
       noValidate 
       autoComplete="off"
       >
-      <header className="login-header">Facebook Authentication</header>
-      <TextField
-        id="user-name"
-        label="Enter your username" 
-        value={this.state.username}
-        onChange={evt => this.setState({username: evt.target.value})}      
-        margin="normal"
-      />
-      <Divider />
-      <TextField
-        id="password"
-        label="Enter your password"
-        type="password"
-        value={this.state.password}
-        onChange={evt => this.setState({password: evt.target.value})}
-        margin="normal"
-      />
-      <Divider />
-      <Button 
-        style={{marginTop: 10}} 
-        onClick={
-          () => this.onLogin()
-        } 
-        variant="contained" 
-        color="primary"
-      >
-        Authenticate
-        <Icon style={{paddingLeft:20}}>lock</Icon>
-      </Button>
+        <header className="login-header">Facebook Authentication</header>
+        <br/>
+        <Divider />
+        <br/>
+        <FacebookLogin
+          appId="235159363948013"
+          autoLoad={true}
+          cookie
+          fields="name,email"
+          onClick={() =>console.log('Clicked')}
+          callback={resp => this.onLogin(resp)}
+        /> 
       </form>
     );  
   }

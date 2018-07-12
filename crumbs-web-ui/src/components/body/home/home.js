@@ -114,8 +114,8 @@ export default class Home extends Component {
           {
             groups.map(
               (group,id) => (
-                <div onClick={() => this.props.history.push('/group/456')}>
-                 <ListItem key={id} button>
+                <div key={id} onClick={() => this.props.history.push('/group/456')}>
+                 <ListItem button>
                     <Avatar>
                       <Group />
                     </Avatar>

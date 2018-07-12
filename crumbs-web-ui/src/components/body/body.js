@@ -47,7 +47,7 @@ export default class Body extends Component {
   render() {
     const {isAuthenticated, isLinked, handleLink, handleLogin, handleLogout, handleUnlink} = this.props;
     return (
-      <div className="App-body">
+      <div className="App-body">        
         <Switch> 
           <Route 
            exact

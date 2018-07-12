@@ -8,7 +8,8 @@ import Avatar from '@material-ui/core/Avatar';
 import AddIcon from '@material-ui/icons/PersonAdd';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-//import TextField from '@material-ui/core/TextField';
+import { Redirect } from 'react-router-dom';
+import ArrowBack from '@material-ui/icons/ArrowBack'
 import DownloadIcon from '@material-ui/icons/FileDownload';
 import UploadIcon from '@material-ui/icons/FileUpload';
 import ShareIcon from '@material-ui/icons/Share';
@@ -157,6 +158,12 @@ export default class Group extends Component {
           </DialogActions>
         </Dialog>
         <header className="group-header">
+          <div 
+            style={{cursor:'pointer'}} 
+            onClick={() => this.props.history.push('/home')}
+          >
+            <ArrowBack />
+          </div>
             {
               (isAdmin)?
               <Chip
@@ -164,13 +171,14 @@ export default class Group extends Component {
                 className="admin-badge"                      
               />:
               null
-            }
+            }          
           <div>TEAM 456</div>          
           <div style={{display:'flex', cursor:'pointer'}}>
             {
               members.map(
                 (member,id) => (
-                  <Avatar 
+                  <Avatar
+                    key={id} 
                     alt={capitalize(`${member.name.first} ${member.name.last}`)} 
                     title={capitalize(`${member.name.first} ${member.name.last}`)}
                     src={member.picture.large}
