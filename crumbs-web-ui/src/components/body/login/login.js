@@ -16,14 +16,15 @@ export default class Login extends Component {
     };
   }
 
+  
   onLogin(resp){
-    const {isAuthenticated, isLinked, history, handleLogin} = this.props;
+    const {isAuthenticated, isLinked, history, handleLogin, checkLoginStatus} = this.props;
     const {state} = this;
     console.log(resp);
     if(resp.status === 'unknown'){
-      
+      console.log('Unknown User');
     } else {
-      handleLogin();
+      handleLogin(resp);
     }    
   }
 
@@ -40,8 +41,7 @@ export default class Login extends Component {
         <br/>
         <FacebookLogin
           appId="235159363948013"
-          autoLoad={true}
-          cookie
+          autoLoad={false}
           fields="name,email"
           onClick={() =>console.log('Clicked')}
           callback={resp => this.onLogin(resp)}

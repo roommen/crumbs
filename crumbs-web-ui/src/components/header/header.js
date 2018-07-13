@@ -10,12 +10,12 @@ export default class Header extends Component {
   }
 
   render() {
-    const {isAuthenticated, handleLogout} = this.props;
+    const {isAuthenticated, handleLogout,checkLoginStatus} = this.props;
     return (
         <header className="App-header">
           <img src="/img/crumbs_logo.png" className="App-logo" alt="CRUMBS" />
           {
-            (isAuthenticated)
+            (checkLoginStatus())
             ?<div style={{display:'flex', justifyContent:'flex-start', padding: 60}}>
               <Button 
                 style={{marginTop: 10}} 

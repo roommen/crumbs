@@ -26,23 +26,23 @@ class App extends Component {
     // this.logout = this.props.fb.logout
   }
 
-  getStatus(response) {
-    if (response.authResponse) {
-      this.responseApi.call(this, response.authResponse)
-    }
+  checkLoginStatus(){
+     if(localStorage.getItem('userDetails')){
+       return true;
+     } else {
+       return false;
+     }
   }
 
-  responseApi(res) {
-    console.log('token:', res.accessToken)
-  }
-
-  handleLogin(){
+  handleLogin(resp){
     //this.props.fb.login(this.getStatus.bind(this));
+    localStorage.setItem('userDetails',JSON.stringify(resp));
     this.setState({isAuthenticated: true});
   }
 
   handleLogout(){
     //this.props.fb.logout();
+    localStorage.clear();
     this.setState({isAuthenticated: false});
   }
 
@@ -65,15 +65,14 @@ class App extends Component {
         <Header 
           isAuthenticated={isAuthenticated} 
           isLinked={isLinked}
-          handleLogin={() => this.handleLogin()}
-          handleLogout={() => this.handleLogout()} 
-          handleLink={() => this.handleLink()}
-          handleUnlink={() => this.handleUnlink()}
+          checkLoginStatus={() => this.checkLoginStatus()}
+          handleLogout={() => this.handleLogout()}
         />
         <Body
           isAuthenticated={isAuthenticated} 
           isLinked={isLinked}
-          handleLogin={() => this.handleLogin()}
+          checkLoginStatus={() => this.checkLoginStatus()}
+          handleLogin={(resp) => this.handleLogin(resp)}
           handleLogout={() => this.handleLogout()} 
           handleLink={() => this.handleLink()}
           handleUnlink={() => this.handleUnlink()}
