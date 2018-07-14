@@ -1,0 +1,31 @@
+Submission writeup draft - of team and project
+<br/><br/>
+1. Vide Demo - Should be a YouTube or Vimeo URL
+<br/>
+2. File Upload - Zip all the file (source code, ppt, additional instruction docs)
+<br/>
+3. Submitter Type - Team
+<br/>
+4. Submitter Country of residence - India
+<br/>
+5. Submitter phone number - +91-988xxx
+<br/>
+6. Organization Name - Bridgei2i
+<br/>
+7. Which region most closely fits where you live - India
+<br/>
+8. URL where we can access your deployed software - https://<url>
+<br/>
+9. App status - New
+<br/>
+10. List all Facebook products used to build or update your submission
+<br/>
+11. Testing Instructions for your application
+<br/>
+How does your submission help bring communities closer together?
+<br/>
+Select one community bonus prize that your solution fits - Drive engaging communities
+<br/>
+
+Make sure to "Edit" the Crumbs team and fill thos details as well...<br/>
+like the current tag line, "Here's the whole story" section, Demo URL, Videmo demo URL, Image file
