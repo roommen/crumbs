@@ -99,7 +99,7 @@ server.route({
     path: '/users/{id}',
     handler: (request, h) => {
 		fetchUser(db,request.params.id);
-		return playlists;
+		return user;
     }
 });
 
