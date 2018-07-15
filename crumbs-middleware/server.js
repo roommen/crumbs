@@ -54,34 +54,34 @@ const db = new sqlite3.Database('../../crumbs_master', err => {
   			console.log('Connected to the Crumbs SQlite database.');
 });
 
-let users = [];
+//let users = [];
 let user = {};
 
-const fetchUsers = (db) => {
-	let query = 'SELECT * FROM users';
-	db.all(
-	   query, 
-	   [],
-	   (err, rows) => {
-    	if (err) {
-    		console.error('Query Error::',err.message);
-    	}
-    	users = rows;			
-  	});	
-}
+// const fetchUsers = (db) => {
+// 	let query = 'SELECT * FROM users';
+// 	return db.all(
+// 	   query, 
+// 	   [],
+// 	   (err, rows) => {
+//     	if (err) {
+//     		console.error('Query Error::',err.message);
+//     	}
+//     	return rows;			
+//   	});	
+// }
 
-const fetchUser = (db,id) => {
-	let query = 'SELECT * FROM users where user_id=?';
-	db.get(
-	   query, 
-	   [id],
-	   (err, row) => {
-    	if (err) {
-    		console.error('Query Error::',err.message);
-    	}
-    	user = row;			
-  	});	
-}
+// const fetchUser = (db,id) => {
+// 	let query = 'SELECT * FROM users where user_id=?';
+// 	return db.get(
+// 	   query, 
+// 	   [id],
+// 	   (err, row) => {
+//     	if (err) {
+//     		console.error('Query Error::',err.message);
+//     	}
+//     	return row;			
+//   	});	
+// }
 
 const closeDB = () => db.close();
 
@@ -89,8 +89,18 @@ server.route({
     method: 'GET',
     path: '/users',
     handler: (request, h) => {
-		fetchUsers(db);
-		return users;	
+		return new Promise(resolve => {
+			let query = 'SELECT * FROM users';
+			db.all(
+			query, 
+			[],
+			(err, rows) => {
+				if (err) {
+					console.error('Query Error::',err.message);
+				}
+				resolve(rows);			
+			});	
+		});
     }
 });
 
@@ -98,10 +108,20 @@ server.route({
     method: 'GET',
     path: '/users/{id}',
     handler: (request, h) => {
-		fetchUser(db,request.params.id);
-		return user;
-    }
-});
+		 return new Promise(resolve => {
+			let query = 'SELECT * FROM users where user_id=?';
+			db.get(
+			   query, 
+			   [request.params.id],
+			   (err, row) => {
+				if (err) {
+					console.error('Query Error::',err.message);
+				}
+				resolve(row);			
+			});	
+		 });
+    	}
+    });
 
 const init = async () => {
     await server.start();
