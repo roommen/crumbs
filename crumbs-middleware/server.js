@@ -8,80 +8,16 @@ const server = Hapi.server({
     host: 'localhost'
 });
 
-//For local DB Testing
-
-/* const db = new sqlite3.Database('./chinook/chinook.db', err => {
-	if (err) {
-		return console.error('Connection Error::',err.message);
-	  }
-	  console.log('Connected to the Chinook SQlite database.');
-}); 
-
-let playlists = [];
-
-const fetchPlaylists = db => {
-	let query = 'SELECT PlaylistId as id, Name as name FROM playlists';
-	db.all(
-	   query, 
-	   [],
-	   (err, rows) => {
-    	if (err) {
-    		console.error('Query Error::',err.message);
-    	}
-    	playlists = rows;			
-  	   });		
-  };
-
-server.route({
-    method: 'GET',
-    path: '/playlists',
-    handler: (request, h) => {
-		fetchPlaylists(db);
-		//});
-		//return null;
-		return playlists;
-		
-    }
-});
-*/
-
 //For server testing
 
 const db = new sqlite3.Database('../../crumbs_master', err => {
-			if (err) {
-    			return console.error('Connection Error::',err.message);
-  			}
-  			console.log('Connected to the Crumbs SQlite database.');
+	if (err) {
+		return console.error('Connection Error::',err.message);
+	}
+	console.log('Connected to the Crumbs SQlite database.');
 });
 
-//let users = [];
 let user = {};
-
-// const fetchUsers = (db) => {
-// 	let query = 'SELECT * FROM users';
-// 	return db.all(
-// 	   query, 
-// 	   [],
-// 	   (err, rows) => {
-//     	if (err) {
-//     		console.error('Query Error::',err.message);
-//     	}
-//     	return rows;			
-//   	});	
-// }
-
-// const fetchUser = (db,id) => {
-// 	let query = 'SELECT * FROM users where user_id=?';
-// 	return db.get(
-// 	   query, 
-// 	   [id],
-// 	   (err, row) => {
-//     	if (err) {
-//     		console.error('Query Error::',err.message);
-//     	}
-//     	return row;			
-//   	});	
-// }
 
 const closeDB = () => db.close();
 
@@ -106,13 +42,13 @@ server.route({
 
 server.route({
     method: 'GET',
-    path: '/users/{id}',
+    path: '/users/{param}',
     handler: (request, h) => {
 		 return new Promise(resolve => {
-			let query = 'SELECT * FROM users where user_id=?';
+			let query = 'SELECT * FROM users where user_id=? OR fname=?';
 			db.get(
 			   query, 
-			   [request.params.id],
+			   [request.params.param, request.params.param.split(' ')[0]],
 			   (err, row) => {
 				if (err) {
 					console.error('Query Error::',err.message);

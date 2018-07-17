@@ -55,7 +55,23 @@ export default class Home extends Component {
     this.state ={
       isOpen: false,
       newGroupName:'',
-    }
+      user: null,
+    };
+  }
+
+  componentDidMount(){
+    const user = JSON.parse(localStorage.getItem('userDetails'));
+    fetch('http://localhost:1990/users/'+ user.name.split(' ')[0],{
+      method:'GET',
+      headers: {
+        'Access-Control-Allow-Origin':'http://localhost:1990/',
+      },
+    })
+    .then(resp => resp.json())
+    .then(user => {
+      console.log('Received Data', user);
+      this.setState({user});
+    })
   }
 
   createGroup(){
@@ -65,78 +81,82 @@ export default class Home extends Component {
       members:0,
       admin: true
     });
-
     this.setState({isOpen:false});
   }
 
   render() {
+    if(!this.state.user){
+      return null;
+    } 
     const {handleLogout} = this.props;
+    const {user} = this.state;    
     return (
-      <div className="App-home">
-        <Dialog
-          open={this.state.isOpen}
-          onClose={() => this.setState({isOpen:false})}
-         >
-          <DialogTitle>CREATE GROUP</DialogTitle>
-          <Divider />
-          <DialogContent>
-            <TextField
-              id="name"
-              label="Enter a group name"
-              onChange={evt => this.setState({ newGroupName: evt.target.value })}
-              margin="normal"
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => this.setState({isOpen:false})} color="primary">
-              CLOSE
-            </Button>
-            <Button onClick={() => this.createGroup()} color="primary" autoFocus>
-              CREATE GROUP
-            </Button>
-          </DialogActions>
-        </Dialog>
-         <header className="home-header">
-           <Avatar style={{color:'white', backgroundColor:'orange'}}>JD</Avatar>
-           <div style={{marginTop: 7}}>Welcome, John Doe</div>
-            <Button 
-              variant="fab" 
-              color="primary" 
-              aria-label="add" 
-              className="create-group"
-              onClick={() => this.setState({isOpen:true})}
-            >
-              <AddIcon />
-            </Button>
-         </header>
-         <div className="group-list">
-          <List>
-          {
-            groups.map(
-              (group,id) => (
-                <div key={id} onClick={() => this.props.history.push('/group/456')}>
-                 <ListItem button>
-                    <Avatar>
-                      <Group />
-                    </Avatar>
-                    <ListItemText primary={group.name} secondary={`${group.members} members`} /> 
-                    {
-                      (group.admin)?
-                      <Chip
-                        label="ADMIN"
-                        className="admin-badge"                      
-                      />:
-                      null
-                    }                 
-                  </ListItem>                  
-                  <Divider />
-                </div>
+        <div className="App-home">
+          <Dialog
+            open={this.state.isOpen}
+            onClose={() => this.setState({isOpen:false})}
+           >
+            <DialogTitle>CREATE GROUP</DialogTitle>
+            <Divider />
+            <DialogContent>
+              <TextField
+                id="name"
+                label="Enter a group name"
+                onChange={evt => this.setState({ newGroupName: evt.target.value })}
+                margin="normal"
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => this.setState({isOpen:false})} color="primary">
+                CLOSE
+              </Button>
+              <Button onClick={() => this.createGroup()} color="primary" autoFocus>
+                CREATE GROUP
+              </Button>
+            </DialogActions>
+          </Dialog>
+           <header className="home-header">
+             <Avatar style={{color:'white', backgroundColor:'orange'}}>JD</Avatar>
+             <div style={{marginTop: 7}}>Welcome, {user.name}</div>
+              <Button 
+                variant="fab" 
+                color="primary" 
+                aria-label="add" 
+                className="create-group"
+                onClick={() => this.setState({isOpen:true})}
+              >
+                <AddIcon />
+              </Button>
+           </header>
+           <div className="group-list">
+            <List>
+            {
+              groups.map(
+                (group,id) => (
+                  <div key={id} onClick={() => this.props.history.push('/group/456')}>
+                   <ListItem button>
+                      <Avatar>
+                        <Group />
+                      </Avatar>
+                      <ListItemText primary={group.name} secondary={`${group.members} members`} /> 
+                      {
+                        (group.admin)?
+                        <Chip
+                          label="ADMIN"
+                          className="admin-badge"                      
+                        />:
+                        null
+                      }                 
+                    </ListItem>                  
+                    <Divider />
+                  </div>
+                )
               )
-            )
-          }
-          </List>
+            }
+            </List>
+          </div>
         </div>
-      </div>
-    )
+      )
+    //}
   }
 }
