@@ -61,12 +61,8 @@ export default class Home extends Component {
 
   componentDidMount(){
     const user = JSON.parse(localStorage.getItem('userDetails'));
-    fetch('http://localhost:1990/users/'+ user.name.split(' ')[0],{
-      method:'GET',
-      headers: {
-        'Access-Control-Allow-Origin':'http://localhost:1990/',
-      },
-    })
+    alert(user.name);
+    fetch('http://localhost:1990/users/'+ user.name.split(' ')[0])
     .then(resp => resp.json())
     .then(user => {
       console.log('Received Data', user);
