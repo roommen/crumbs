@@ -34,7 +34,10 @@ server.route({
 				if (err) {
 					console.error('Query Error::',err.message);
 				}
-				resolve(rows);			
+				const response = h.response(rows);
+				response.type('application/json');
+    			response.header('Access-Control-Allow-Origin', '*');
+				resolve(response);			
 			});	
 		});
     }
@@ -53,7 +56,10 @@ server.route({
 				if (err) {
 					console.error('Query Error::',err.message);
 				}
-				resolve(row);			
+				const response = h.response(row);
+				response.type('application/json');
+    			response.header('Access-Control-Allow-Origin', '*');
+				resolve(response);			
 			});	
 		 });
     	}

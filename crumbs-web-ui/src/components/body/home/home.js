@@ -61,12 +61,15 @@ export default class Home extends Component {
 
   componentDidMount(){
     const user = JSON.parse(localStorage.getItem('userDetails'));
-    alert(user.name);
     fetch('http://localhost:1990/users/'+ user.name.split(' ')[0])
-    .then(resp => resp.json())
-    .then(user => {
-      console.log('Received Data', user);
-      this.setState({user});
+    .then(resp =>{ 
+      alert('Done!!');
+      return resp.json()
+    })
+    .then(data => {      
+      this.setState({
+        user:data,
+      });
     })
   }
 
@@ -112,8 +115,8 @@ export default class Home extends Component {
             </DialogActions>
           </Dialog>
            <header className="home-header">
-             <Avatar style={{color:'white', backgroundColor:'orange'}}>JD</Avatar>
-             <div style={{marginTop: 7}}>Welcome, {user.name}</div>
+             <Avatar src={user.user_pic} />
+             <div style={{marginTop: 7}}>Welcome, {user.fname}</div>
               <Button 
                 variant="fab" 
                 color="primary" 
