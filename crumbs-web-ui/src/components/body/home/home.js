@@ -16,39 +16,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import './home.css';
 
-let groups = [
-  {
-    id:'avg_ind',
-    name:'Avengers India',
-    members:4,
-    admin:false,
-  },
-  {
-    id:'gl_dev',
-    name:'Global Developers',
-    members:3,
-    admin:true,
-  },
-  {
-    id:'react_un',
-    name:'React Union',
-    members:5,
-    admin:false,
-  },
-  {
-    id:'indo_pg',
-    name:'Indo-polyglots',
-    members:2,
-    admin:true,
-  },
-  {
-    id:'aggregators',
-    name:'The Aggregators',
-    members:2,
-    admin:false,
-  }
-];
-
 export default class Home extends Component {
   constructor(props){
     super(props);
@@ -56,31 +23,52 @@ export default class Home extends Component {
       isOpen: false,
       newGroupName:'',
       user: null,
+      groups:[],
     };
   }
 
   componentDidMount(){
     const user = JSON.parse(localStorage.getItem('userDetails'));
-    fetch('http://localhost:1990/users/'+ user.name.split(' ')[0])
+    fetch('http://localhost:1990/users/'+ user.name.split(' ')[0]+'/all')
     .then(resp =>{ 
-      alert('Done!!');
+      //alert('Done!!');
       return resp.json()
     })
     .then(data => {      
       this.setState({
-        user:data,
+        user: data
+        .map(item => ({
+          user_id: item.user_id,
+          uname: item.uname,
+          fname: item.fname,
+          user_pic: item.user_pic,
+          lname: item.lname,
+          drive: item.drive,
+          token: item.token,
+        }))[0],
+        groups: data
+        .map(item => ({
+          sub_id: item.sub_id,
+          group_id: item.group_id,
+          contribution: item.contribution,
+          admin_id: item.admin_id,
+          group_name: item.group_name,
+          members: 3,
+          admin: item.admin_id === item.user_id,
+        })),
       });
     })
   }
 
   createGroup(){
+    const {groups} = this.state;
     groups.push({
-      id: this.state.newGroupName.trim().toLowerCase(),
-      name: this.state.newGroupName,
+      group_id: this.state.newGroupName.trim().toLowerCase(),
+      group_name: this.state.newGroupName,
       members:0,
       admin: true
     });
-    this.setState({isOpen:false});
+    this.setState({isOpen:false, groups});
   }
 
   render() {
@@ -88,7 +76,7 @@ export default class Home extends Component {
       return null;
     } 
     const {handleLogout} = this.props;
-    const {user} = this.state;    
+    const {user, groups} = this.state;    
     return (
         <div className="App-home">
           <Dialog
@@ -132,12 +120,21 @@ export default class Home extends Component {
             {
               groups.map(
                 (group,id) => (
-                  <div key={id} onClick={() => this.props.history.push('/group/456')}>
+                  <div 
+                   key={id} 
+                   onClick={
+                     () => this.props.history.push({
+                      pathname: '/group/'+ group.group_id,
+                      state:{
+                        metadata:{user,group},
+                      }
+                     })
+                    }>
                    <ListItem button>
                       <Avatar>
                         <Group />
                       </Avatar>
-                      <ListItemText primary={group.name} secondary={`${group.members} members`} /> 
+                      <ListItemText primary={group.group_name} secondary={`${group.members} members`} /> 
                       {
                         (group.admin)?
                         <Chip

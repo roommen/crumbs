@@ -63,7 +63,34 @@ server.route({
 			});	
 		 });
     	}
-    });
+	});
+	
+	server.route({
+		method: 'GET',
+		path: '/users/{param}/all',
+		handler: (request, h) => {
+			 return new Promise(resolve => {
+				let query = `
+				select * from 
+				(select * from users u inner join subscriptions s on u.user_id = s.user_id ) t
+				inner join groups g on t.group_id = g.group_id
+				where user_id=? OR fname=?
+				`;
+				db.all(
+				   query, 
+				   [request.params.param, request.params.param.split(' ')[0]],
+				   (err, row) => {
+					if (err) {
+						console.error('Query Error::',err.message);
+					}
+					const response = h.response(row);
+					response.type('application/json');
+					response.header('Access-Control-Allow-Origin', '*');
+					resolve(response);			
+				});	
+			 });
+			}
+		});
 
 const init = async () => {
     await server.start();
