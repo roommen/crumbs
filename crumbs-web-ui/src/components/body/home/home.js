@@ -76,7 +76,8 @@ export default class Home extends Component {
       return null;
     } 
     const {handleLogout} = this.props;
-    const {user, groups} = this.state;    
+    const {user, groups} = this.state; 
+    
     return (
         <div className="App-home">
           <Dialog

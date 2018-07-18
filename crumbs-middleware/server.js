@@ -92,6 +92,33 @@ server.route({
 			}
 		});
 
+		server.route({
+			method: 'GET',
+			path: '/groups/{param}/users',
+			handler: (request, h) => {
+				 return new Promise(resolve => {
+					let query = `
+					select user_id, uname, fname, lname, user_pic from 
+					(select * from users u inner join subscriptions s on u.user_id = s.user_id ) t
+					inner join groups g on t.group_id = g.group_id
+					where t.group_id=?
+					`;
+					db.all(
+					   query, 
+					   [request.params.param],
+					   (err, rows) => {
+						if (err) {
+							console.error('Query Error::',err.message);
+						}
+						const response = h.response(rows);
+						response.type('application/json');
+						response.header('Access-Control-Allow-Origin', '*');
+						resolve(response);			
+					});	
+				 });
+				}
+			});
+
 const init = async () => {
     await server.start();
     console.log(`Server running at: ${server.info.uri}`);
