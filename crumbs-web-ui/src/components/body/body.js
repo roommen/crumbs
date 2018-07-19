@@ -5,13 +5,13 @@ import Home from './home/home';
 import Drive from './drive/drive';
 import Group from './group/group';
 
-const PrivateRoute = ({ component:Component, isAuthenticated, isLinked, ...rest }) => 
+const PrivateRoute = ({ component:Component, isAuthenticated, isLinked,checkLoginStatus, ...rest }) => 
 (
   <Route
     {...rest}
     render={
       (props) => 
-      (isAuthenticated === true)
+      (checkLoginStatus() === true)
       ?(isLinked === true)
         ?<Component {...props} {...rest} isAuthenticated={isAuthenticated} isLinked={isLinked} />
         :<Redirect 
@@ -24,13 +24,13 @@ const PrivateRoute = ({ component:Component, isAuthenticated, isLinked, ...rest 
   />
 );
 
-const PrivateDriveRoute = ({ component:Component, isAuthenticated, isLinked, ...rest }) => 
+const PrivateDriveRoute = ({ component:Component, isAuthenticated, isLinked,checkLoginStatus, ...rest }) => 
 (
   <Route
     {...rest}
     render={
       (props) => 
-      (isAuthenticated === true)
+      (checkLoginStatus() === true)
       ?(isLinked === true)
        ?<Redirect 
           to="/home"
@@ -45,16 +45,16 @@ const PrivateDriveRoute = ({ component:Component, isAuthenticated, isLinked, ...
 
 export default class Body extends Component {
   render() {
-    const {isAuthenticated, isLinked, handleLink, handleLogin, handleLogout, handleUnlink} = this.props;
+    const {isAuthenticated, isLinked, handleLink, checkLoginStatus, handleLogin, handleLogout, handleUnlink} = this.props;
     return (
-      <div className="App-body">
+      <div className="App-body">        
         <Switch> 
           <Route 
            exact
            path="/"
            render={
              props => {
-               if(isAuthenticated){
+               if(checkLoginStatus()){
                  if(isLinked){
                   return <Redirect to="/home" />
                  } else {
@@ -71,7 +71,7 @@ export default class Body extends Component {
            path="/login" 
            render={
              props => {
-              if(isAuthenticated){
+              if(checkLoginStatus()){
                 if(isLinked){
                  return <Redirect to="/home" />
                 } else {
@@ -81,8 +81,9 @@ export default class Body extends Component {
                 return <Login
                     {...props} 
                     isAuthenticated={isAuthenticated} 
+                    checkLoginStatus={() => checkLoginStatus()}
                     isLinked={isLinked}
-                    handleLogin={() => handleLogin()}
+                    handleLogin={(resp) => handleLogin(resp)}
                     handleLogout={() => handleLogout()} 
                     handleLink={() => handleLink()}
                     handleUnlink={() => handleUnlink()}
@@ -97,7 +98,7 @@ export default class Body extends Component {
             component={Home}
             isAuthenticated={isAuthenticated} 
             isLinked={isLinked}
-            handleLogin={() => handleLogin()}
+            checkLoginStatus={() => checkLoginStatus()}
             handleLogout={() => handleLogout()} 
             handleLink={() => handleLink()}
             handleUnlink={() => handleUnlink()}            
@@ -107,17 +108,17 @@ export default class Body extends Component {
            component={Drive}
            isAuthenticated={isAuthenticated} 
            isLinked={isLinked}
-           handleLogin={() => handleLogin()}
+           checkLoginStatus={() => checkLoginStatus()}
            handleLogout={() => handleLogout()} 
            handleLink={() => handleLink()}
-           handleUnlink={() => handleUnlink()}
+           //handleUnlink={() => handleUnlink()}
           />
           <PrivateRoute 
             path="/group/:groupID" 
             component={Group} 
             isAuthenticated={isAuthenticated} 
             isLinked={isLinked}
-            handleLogin={() => handleLogin()}
+            checkLoginStatus={() => checkLoginStatus()}
             handleLogout={() => handleLogout()} 
             handleLink={() => handleLink()}
             handleUnlink={() => handleUnlink()}

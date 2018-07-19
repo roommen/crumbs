@@ -8,7 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import AddIcon from '@material-ui/icons/PersonAdd';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-//import TextField from '@material-ui/core/TextField';
+import ArrowBack from '@material-ui/icons/ArrowBack'
 import DownloadIcon from '@material-ui/icons/FileDownload';
 import UploadIcon from '@material-ui/icons/FileUpload';
 import ShareIcon from '@material-ui/icons/Share';
@@ -22,6 +22,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
 import DialogTitle from '@material-ui/core/DialogTitle';
+//import GoogleAPI from 'googleapis';
+import NodeDropbox from 'node-dropbox';
 import './group.css';
 
 const capitalize = str => str.toUpperCase()
@@ -44,30 +46,30 @@ export default class Group extends Component {
       members: [],
       users:[],
       files:[
-        {
-          id:6876865,
-          name:'DesignGuidelines.pdf',
-          type:'doc',
-          size: 6.4,
-        },
-        {
-          id:23443546,
-          name:'FlowDiagram.png',
-          type:'image',
-          size: 3.4,
-        },
-        {
-          id:9897877,
-          name:'HighFreq.mp3',
-          type:'sound',
-          size: 0.7,
-        },
-        {
-          id:76453644,
-          name:'SuperNova.mp4',
-          type:'video',
-          size: 2.5,
-        }
+        // {
+        //   id:6876865,
+        //   name:'DesignGuidelines.pdf',
+        //   type:'doc',
+        //   size: 6.4,
+        // },
+        // {
+        //   id:23443546,
+        //   name:'FlowDiagram.png',
+        //   type:'image',
+        //   size: 3.4,
+        // },
+        // {
+        //   id:9897877,
+        //   name:'HighFreq.mp3',
+        //   type:'sound',
+        //   size: 0.7,
+        // },
+        // {
+        //   id:76453644,
+        //   name:'SuperNova.mp4',
+        //   type:'video',
+        //   size: 2.5,
+        // }
       ],
       isAdmin: true,
       isOpen: false,
@@ -75,26 +77,56 @@ export default class Group extends Component {
   }
 
   componentDidMount(){
-    fetch('https://randomuser.me/api/?results=10')
+    const {groupID} = this.props.match.params;
+    fetch('http://localhost:1990/groups/'+groupID+'/users')
     .then(response => response.json())
     .then(data => {
       this.setState({
-        members: data.results.slice(0,3),
-        users: data.results.slice(3),
+        members: data,
+        //users: data.results.slice(3),
         invitees:[],
         isOpen: false,
       })
     })
   }
 
+  onOpen(){
+    fetch('https://randomuser.me/api/?results=5')
+    .then(resp => resp.json())
+    .then(data => {
+      this.setState({
+        isOpen:true,
+        users: data.results
+      });
+    })
+  }
+
   inviteMember(){
     let newstate = this.state;
-    newstate.members.push(...newstate.invitees);
+    let mappedInvitees = newstate.invitees.map(
+      (user,idx) => ({
+         user_id: (newstate.members.length + idx),
+         uname: user.login.username,
+         fname: user.name.first,
+         lname: user.name.last,
+         user_pic: user.picture.large,
+         drive:'D',
+         token:'gcfct54rtd'
+      })
+    );
+    newstate.members.push(...mappedInvitees);
     newstate.isOpen = false;
     this.setState(newstate);
   }
 
   handleFileUpload(){
+    // Upload Process (Split the file)
+    // const addon = require('../../../native/upload.node');
+    // var json = "{\"accounts\": [\"db1\",\"db2\",\"db3\"]}";
+    // var result = addon.uploadFile("108", "bill.pdf", json);
+    // console.log(result);
+    // const uploadModule = require('../../../native/upload.node');
+    // console.log(uploadModule);
     let newstate = this.state;
     let fileObj = this.newFile.files[0];
     newstate.files.push({
@@ -119,6 +151,9 @@ export default class Group extends Component {
 
   render() {
     const {members, users, invitees, isAdmin} = this.state;
+    console.log('Group Screen props',this.props); 
+    const currentUser = this.props.location.state.metadata.user;
+    const currentGroup = this.props.location.state.metadata.group;
     return (
       <div className="App-group-container">
         <Dialog
@@ -157,23 +192,30 @@ export default class Group extends Component {
           </DialogActions>
         </Dialog>
         <header className="group-header">
+          <div 
+            style={{cursor:'pointer'}} 
+            onClick={() => this.props.history.push('/home')}
+          >
+            <ArrowBack />
+          </div>
             {
-              (isAdmin)?
+              (currentGroup.admin)?
               <Chip
                 label="ADMIN"
                 className="admin-badge"                      
               />:
               null
-            }
-          <div>TEAM 456</div>          
+            }          
+          <div>{currentGroup.group_name}</div>          
           <div style={{display:'flex', cursor:'pointer'}}>
             {
               members.map(
                 (member,id) => (
-                  <Avatar 
-                    alt={capitalize(`${member.name.first} ${member.name.last}`)} 
-                    title={capitalize(`${member.name.first} ${member.name.last}`)}
-                    src={member.picture.large}
+                  <Avatar
+                    key={id} 
+                    alt={capitalize(`${member.fname} ${member.lname}`)} 
+                    title={capitalize(`${member.fname} ${member.lname}`)}
+                    src={member.user_pic}
                     className="group-member" 
                   />
                 )
@@ -181,13 +223,13 @@ export default class Group extends Component {
             }
              
             {
-              (isAdmin)?
+              (currentGroup.admin)?
               <Button 
                 variant="fab" 
                 color="primary" 
                 aria-label="add" 
                 className="create-group"
-                onClick={() => this.setState({isOpen:true})}
+                onClick={() => this.onOpen()}
               >
                 <AddIcon />
               </Button>:
