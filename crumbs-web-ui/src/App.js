@@ -19,7 +19,7 @@ class App extends Component {
     super(props);
     this.state = {
       isAuthenticated: false,
-      isLinked: false,
+      isLinked: true,
     };
     // this.status = this.props.fb.status
     // this.login = this.props.fb.login

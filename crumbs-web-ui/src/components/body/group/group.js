@@ -22,7 +22,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import GoogleAPI from 'googleapis';
+//import GoogleAPI from 'googleapis';
 import NodeDropbox from 'node-dropbox';
 import './group.css';
 
@@ -120,6 +120,13 @@ export default class Group extends Component {
   }
 
   handleFileUpload(){
+    // Upload Process (Split the file)
+    // const addon = require('../../../native/upload.node');
+    // var json = "{\"accounts\": [\"db1\",\"db2\",\"db3\"]}";
+    // var result = addon.uploadFile("108", "bill.pdf", json);
+    // console.log(result);
+    // const uploadModule = require('../../../native/upload.node');
+    // console.log(uploadModule);
     let newstate = this.state;
     let fileObj = this.newFile.files[0];
     newstate.files.push({
@@ -216,7 +223,7 @@ export default class Group extends Component {
             }
              
             {
-              (true/* currentGroup.admin */)?
+              (currentGroup.admin)?
               <Button 
                 variant="fab" 
                 color="primary" 
