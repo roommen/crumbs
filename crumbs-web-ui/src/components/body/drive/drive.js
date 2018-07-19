@@ -10,7 +10,7 @@ export default class Drive extends Component {
   render() {
     const {handleLink, handleUnlink, history} = this.props;
     const drives = [
-      {title:'Google Drive', url:'/img/gdrive.png'},
+      //{title:'Google Drive', url:'/img/gdrive.png'},
       {title:'Dropbox', url:'/img/dropbox.png'}
     ];
     return (
