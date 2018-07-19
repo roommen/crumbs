@@ -8,7 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import AddIcon from '@material-ui/icons/PersonAdd';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import { Redirect } from 'react-router-dom';
+//import { Redirect } from 'react-router-dom';
 import ArrowBack from '@material-ui/icons/ArrowBack'
 import DownloadIcon from '@material-ui/icons/FileDownload';
 import UploadIcon from '@material-ui/icons/FileUpload';
