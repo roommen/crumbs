@@ -2,6 +2,9 @@
 #define FILE_HANDLING_H
 
 class FileHandling {
+private:
+    std::string user_id;
+    std::string fileName;
 public:
     const char* createTempUserDir(std::string user_id);
     const char* cleanupFileShreds(std::string user_id, std::string fileName);
