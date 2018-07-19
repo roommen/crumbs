@@ -3,6 +3,7 @@
 const Hapi = require('hapi');
 const sqlite3 = require('sqlite3').verbose();
 const node_dropbox = require('node-dropbox');
+const googleapis = require('googleapis');
 
 const server = Hapi.server({
     port: 1990,
