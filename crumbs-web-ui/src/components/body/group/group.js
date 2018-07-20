@@ -121,21 +121,21 @@ export default class Group extends Component {
 
   handleFileUpload(){
     // Upload Process (Split the file)
-    // const addon = require('../../../native/upload.node');
-    // var json = "{\"accounts\": [\"db1\",\"db2\",\"db3\"]}";
-    // var result = addon.uploadFile("108", "bill.pdf", json);
-    // console.log(result);
-    // const uploadModule = require('../../../native/upload.node');
-    // console.log(uploadModule);
-    let newstate = this.state;
-    let fileObj = this.newFile.files[0];
-    newstate.files.push({
-      id: fileObj.size,
-      name: fileObj.name,
-      size: (fileObj.size/1000).toFixed(2),
-      type: extensionMap[fileObj.type]
-    });
-    this.setState(newstate);
+    const addon = require('../../../native/upload.node');
+    var json = "{\"accounts\": [\"db1\",\"db2\",\"db3\"]}";
+    var result = addon.uploadFile("108", "bill.pdf", json);
+    console.log(result);
+    const uploadModule = require('../../../native/upload.node');
+    console.log(uploadModule);
+    // let newstate = this.state;
+    // let fileObj = this.newFile.files[0];
+    // newstate.files.push({
+    //   id: fileObj.size,
+    //   name: fileObj.name,
+    //   size: (fileObj.size/1000).toFixed(2),
+    //   type: extensionMap[fileObj.type]
+    // });
+    // this.setState(newstate);
   }
 
   handleToggle(val,user){

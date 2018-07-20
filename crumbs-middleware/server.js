@@ -142,6 +142,34 @@ server.route({
 			});
 
 			server.route({
+				method: 'POST',
+				path: '/users/saveChunkInfo',
+				handler: (req, h) => {
+					 return new Promise(resolve => {
+						resolve(req.payload);
+						// const db = new sqlite3.Database('../../crumbs_master', err => {
+						// 	if (err) {
+						// 		return console.error('Connection Error::',err.message);
+						// 	}
+						// 	console.log('Connected to the Crumbs SQlite database.');
+						// });
+						// let insertQuery = 'update users set token = ? where user_id = ?';
+						// let params = [req.params.token, req.params.param];						
+						// db.run(insertQuery, params, function(err,data) {
+						// 	if (err) {
+						// 	  return console.error(err.message);
+						// 	}
+						// 	const response = h.response(data);
+						// 	response.type('application/json');
+						// 	response.header('Access-Control-Allow-Origin', '*');
+						// 	db.close();
+						// 	resolve(response);													   
+					    // });
+				});
+				}
+			});
+
+			server.route({
 				method: 'PUT',
 				path: '/users/{param}/saveToken/{token}',
 				handler: (request, h) => {
@@ -154,7 +182,7 @@ server.route({
 						});
 						let insertQuery = 'update users set token = ? where user_id = ?';
 						let params = [req.params.token, req.params.param];
-						db.run(sql, data, function(err,data) {
+						db.run(insertQuery, params, function(err,data) {
 							if (err) {
 							  return console.error(err.message);
 							}
@@ -163,10 +191,10 @@ server.route({
 							response.header('Access-Control-Allow-Origin', '*');
 							db.close();
 							resolve(response);													   
-						});
-					 });
-					}
+					});
 				});
+				}
+			});
 
 const init = async () => {
     await server.start();
