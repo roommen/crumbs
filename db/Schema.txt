@@ -14,6 +14,9 @@ COLUMNS: [group_id(pk), admin_id(fk), group_name, members]
 TABLE NAME: files
 COLUMNS: [file_id(pk), group_id(fk), file_name, file_type, file_size]
 
+TABLE NAME: chunks
+COLUMNS: [chunk_id(pk), file_id(fk), chunk_name]
+
 TABLE NAME: subscriptions
 COLUMNS: [sub_id(pk), group_id(fk), user_id(fk), contribution]
 

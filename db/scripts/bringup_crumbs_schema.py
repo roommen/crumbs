@@ -10,6 +10,7 @@ def bringup_crumbs_schema():
         os.system('python create_admin.py')
         os.system('python create_groups.py')
         os.system('python create_files.py')
+        os.system('python create_chunks.py')
         os.system('python create_subscriptions.py')
         os.system('python create_threads.py')
         os.system('python create_uploads.py')

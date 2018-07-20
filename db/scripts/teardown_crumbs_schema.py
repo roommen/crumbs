@@ -10,6 +10,7 @@ def teardown_crumbs_schema():
         os.system('python drop_admin.py')
         os.system('python drop_groups.py')
         os.system('python drop_files.py')
+        os.system('python drop_chunks.py')
         os.system('python drop_subscriptions.py')
         os.system('python drop_threads.py')
         os.system('python drop_uploads.py')
