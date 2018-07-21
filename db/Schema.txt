@@ -1,6 +1,6 @@
-===========================
-Proposed Schema for CRUMBS
-===========================
+==================
+Schema for CRUMBS
+==================
 
 TABLE NAME: users
 COLUMNS: [user_id(pk), uname, fname, user_pic, lname, drive, token]
@@ -15,7 +15,7 @@ TABLE NAME: files
 COLUMNS: [file_id(pk), group_id(fk), file_name, file_type, file_size]
 
 TABLE NAME: chunks
-COLUMNS: [chunk_id(pk), file_id(fk), chunk_name]
+COLUMNS: [chunk_id(pk), file_id(fk), chunk_name, user_id(fk)]
 
 TABLE NAME: subscriptions
 COLUMNS: [sub_id(pk), group_id(fk), user_id(fk), contribution]
