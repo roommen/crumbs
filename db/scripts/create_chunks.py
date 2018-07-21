@@ -8,8 +8,9 @@ def create_chunks():
         connection = sqlite3.connect(db_loc+db_name)
         cursor = connection.cursor()
         cursor.execute('''
-            CREATE TABLE chunks(chunk_id INTEGER PRIMARY KEY, file_id INTEGER, chunk_name TEXT,
-                FOREIGN KEY(file_id) REFERENCES files(file_id))
+            CREATE TABLE chunks(chunk_id INTEGER PRIMARY KEY, file_id INTEGER, chunk_name TEXT, user_id INTEGER,
+                FOREIGN KEY(file_id) REFERENCES files(file_id),
+                FOREIGN KEY(user_id) REFERENCES users(user_id))
         ''')
         connection.commit()
         print("Table chunks created successfully.")
