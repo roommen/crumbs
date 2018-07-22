@@ -23,7 +23,10 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
 import DialogTitle from '@material-ui/core/DialogTitle';
 //import GoogleAPI from 'googleapis';
-import NodeDropbox from 'node-dropbox';
+//import NodeDropbox from 'node-dropbox';
+//import SplitFile from 'split-file';
+//import SplitFile from "js-split-file/browser";
+//import MergeFiles from 'merge-files';
 import './group.css';
 
 const capitalize = str => str.toUpperCase()
@@ -33,6 +36,7 @@ const typeMap = {
   image:<ImageIcon />,
   sound:<MusicIcon />,
   video:<VideoIcon />,
+  gen:<FileIcon />,
 };
 
 const extensionMap = {
@@ -45,32 +49,7 @@ export default class Group extends Component {
     this.state={
       members: [],
       users:[],
-      files:[
-        // {
-        //   id:6876865,
-        //   name:'DesignGuidelines.pdf',
-        //   type:'doc',
-        //   size: 6.4,
-        // },
-        // {
-        //   id:23443546,
-        //   name:'FlowDiagram.png',
-        //   type:'image',
-        //   size: 3.4,
-        // },
-        // {
-        //   id:9897877,
-        //   name:'HighFreq.mp3',
-        //   type:'sound',
-        //   size: 0.7,
-        // },
-        // {
-        //   id:76453644,
-        //   name:'SuperNova.mp4',
-        //   type:'video',
-        //   size: 2.5,
-        // }
-      ],
+      files:[],
       isAdmin: true,
       isOpen: false,
     }
@@ -81,11 +60,20 @@ export default class Group extends Component {
     fetch('http://localhost:1990/groups/'+groupID+'/users')
     .then(response => response.json())
     .then(data => {
-      this.setState({
-        members: data,
-        //users: data.results.slice(3),
-        invitees:[],
-        isOpen: false,
+      fetch('http://localhost:1990/groups/'+groupID+'/files')
+      .then(response => response.json())
+      .then(files => {
+        this.setState({
+          members: data,
+          files:files.map(file => ({
+            id: file.file_id,
+            name: file.file_name,
+            type: file.file_type,
+            size:file.file_size,
+          })),
+          invitees:[],
+          isOpen: false,
+        })
       })
     })
   }
@@ -119,23 +107,34 @@ export default class Group extends Component {
     this.setState(newstate);
   }
 
-  handleFileUpload(){
-    // Upload Process (Split the file)
-    const addon = require('../../../native/upload.node');
-    var json = "{\"accounts\": [\"db1\",\"db2\",\"db3\"]}";
-    var result = addon.uploadFile("108", "bill.pdf", json);
-    console.log(result);
-    const uploadModule = require('../../../native/upload.node');
-    console.log(uploadModule);
-    // let newstate = this.state;
-    // let fileObj = this.newFile.files[0];
-    // newstate.files.push({
-    //   id: fileObj.size,
-    //   name: fileObj.name,
-    //   size: (fileObj.size/1000).toFixed(2),
-    //   type: extensionMap[fileObj.type]
-    // });
-    // this.setState(newstate);
+  handleFileUpload(evt){
+     let fileObj = this.newFile.files[0];
+     fetch('http://localhost:1990/users/saveChunkInfo',{
+        method:'POST',
+        mode:'no-cors',
+        body:JSON.stringify({
+          file: fileObj.name,
+          fileURL: 'C:\\temp\\'+fileObj.name,
+          size: fileObj.size,
+          members: this.state.members,
+          groupID: this.props.match.params.groupID
+        })
+     })
+     .then(resp => { 
+       fetch('http://localhost:1990/groups/'+this.props.match.params.groupID+'/files')
+      .then(response => response.json())
+      .then(files => {
+        this.setState({
+           files:files.map(file => ({
+            id: file.file_id,
+            name: file.file_name,
+            type: file.file_type,
+            size:file.file_size,
+          })),
+          isOpen: false,
+        })
+      })
+    })
   }
 
   handleToggle(val,user){
@@ -147,6 +146,14 @@ export default class Group extends Component {
        newstate.invitees.splice(index,1);
      }
      this.setState(newstate);
+  }
+
+  onDownload(filename, fileID, groupID){
+    fetch(`http://localhost:1990/groups/${groupID}/downloadFile/${fileID}`)
+    .then(resp =>resp.json())
+    .then(data => {
+      alert('Downloaded the file:::'+filename);
+    });
   }
 
   render() {
@@ -248,12 +255,17 @@ export default class Group extends Component {
                     {typeMap[file.type]}
                    </ListItemIcon>
                    <ListItemText primary={file.name} secondary={`${file.size} MB`} />  
-                   <ListItemIcon onClick={() => alert('Downloaded')}>
+                   <ListItemIcon 
+                   onClick={
+                     () => this.onDownload(file.name, file.id, this.props.match.params.groupID)
+                    }
+                   >
                     <DownloadIcon />
                    </ListItemIcon>
-                   <ListItemIcon>
+                   {/* <ListItemIcon>
                     <ShareIcon />
-                   </ListItemIcon>                                
+                   </ListItemIcon>
+                   */}
                  </ListItem>                  
                  <Divider />
               </div>
@@ -266,11 +278,11 @@ export default class Group extends Component {
             ref={newFile => this.newFile = newFile}
             multiple
             type="file"
-            onChange={() => this.handleFileUpload()}
+            onChange={evt => this.handleFileUpload(evt)}
             style={{display:'none'}}
           />
           <label htmlFor="upload-file">
-            <Button variant="contained" component="span" color="primary">
+            <Button variant="contained" title="Please upload from a temporary location" component="span" color="primary">
               Upload File
               <UploadIcon />
             </Button>

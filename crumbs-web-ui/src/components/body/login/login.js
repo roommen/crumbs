@@ -35,7 +35,7 @@ export default class Login extends Component {
       noValidate 
       autoComplete="off"
       >
-        <header className="login-header">Facebook Authentication</header>
+        <header className="login-header">Welcome to CRUMBS</header>
         <br/>
         <Divider />
         <br/>
