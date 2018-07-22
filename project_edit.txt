@@ -1,0 +1,38 @@
+Edit Your Project:
+(https://devpost.com/software/crumbs-rv9omw/edit)
+
+1. I'm developing a project called - CRUMBS
+
+2. Here's the elevator pitch - Securely share files and collaborate data online no matter what your storage provider is
+
+3. It's built with - Node.js, react-native, html, css, javascript, sqlite, amazon-ec2, facebook-login-api, c++
+
+4. The team - Runcy Oommen, Souvik Misra
+
+5. Here's the whole story
+## Inspiration
+There isn't a single unified experience to share files or content across online storage providers. Everyone has their own choice of platform and collaboration for productivity is painful considering
+
+
+## What it does
+Test
+
+## How we built it
+Test
+
+## Challenges we ran into
+Test
+
+## Accomplishments that we're proud of
+Test
+
+## What we learned
+Test
+
+## What's next for Crumbs
+Test
+
+6. Try it out - https://crumbs.runcy.me
+
+7. Video demo - 
+

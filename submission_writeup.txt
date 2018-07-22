@@ -1,6 +1,6 @@
 Submission writeup draft - of team and project
 <br/><br/>
-1. Vide Demo - Should be a YouTube or Vimeo URL
+1. Video Demo - Should be a YouTube or Vimeo URL
 <br/>
 2. File Upload - Zip all the file (source code, ppt, additional instruction docs)
 <br/>
