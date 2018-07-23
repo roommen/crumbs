@@ -29,9 +29,11 @@ export default class Home extends Component {
 
   componentDidMount(){
     const user = JSON.parse(localStorage.getItem('userDetails'));
-    fetch('http://localhost:1990/users/'+ user.name.split(' ')[0]+'/all')
-    .then(resp =>{ 
-      //alert('Done!!');
+    if(!user){
+      this.props.history.push('/login');
+    } else {
+      fetch('http://localhost:1990/users/'+ user.name.split(' ')[0]+'/all')
+    .then(resp =>{
       return resp.json()
     })
     .then(data => {      
@@ -58,6 +60,8 @@ export default class Home extends Component {
         })),
       });
     })
+    }
+    
   }
 
   createGroup(){

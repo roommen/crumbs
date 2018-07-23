@@ -229,6 +229,7 @@ server.route({
 												if(error){
 													return console.log('Chunk Data Persist Error:::', error);
 												}
+												fs.unlinkSync(chunkPath);
 												const response = h.response({
 													status:'Chunking Success',
 													statusCode:'201'
@@ -277,7 +278,12 @@ server.route({
 								stream.on('finish',() => {
 									splitter.mergeFiles(mappedFiles, `C:\\temp\\merged_${row.chunk_name.split('.s')[0]}`)
 										.then(() => {
-											console.log('Downloaded '+row.chunk_name.split('.s')[0])
+											console.log('Downloaded '+row.chunk_name.split('.s')[0]);
+											if(idx >= 2){
+												fs.unlinkSync(mappedFiles[0]);
+												fs.unlinkSync(mappedFiles[1]);
+												fs.unlinkSync(mappedFiles[2]);
+											}
 										})
 										.catch((err) => {
 											console.log('Error: ', err);
