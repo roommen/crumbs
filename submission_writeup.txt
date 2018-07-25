@@ -1,31 +1,33 @@
 Submission writeup draft - of team and project
-<br/><br/>
-1. Video Demo - Should be a YouTube or Vimeo URL
-<br/>
-2. File Upload - Zip all the file (source code, ppt, additional instruction docs)
-<br/>
-3. Submitter Type - Team
-<br/>
-4. Submitter Country of residence - India
-<br/>
-5. Submitter phone number - +91-988xxx
-<br/>
-6. Organization Name - Bridgei2i
-<br/>
-7. Which region most closely fits where you live - India
-<br/>
-8. URL where we can access your deployed software - https://<url>
-<br/>
-9. App status - New
-<br/>
-10. List all Facebook products used to build or update your submission
-<br/>
-11. Testing Instructions for your application
-<br/>
-How does your submission help bring communities closer together?
-<br/>
-Select one community bonus prize that your solution fits - Drive engaging communities
-<br/>
+1. Video Demo - 
 
-Make sure to "Edit" the Crumbs team and fill thos details as well...<br/>
-like the current tag line, "Here's the whole story" section, Demo URL, Videmo demo URL, Image file
+2. File Upload - Zip all the file (source code, ppt, additional instruction docs)
+
+3. Submitter Type - Team
+
+4. Submitter Country of residence - India
+
+5. Submitter phone number - +91-988xxx
+
+6. Organization Name - Bridgei2i
+
+7. Which region most closely fits where you live - India
+
+8. URL where we can access your deployed software - https://crumbs.runcy.me
+
+9. App status - New
+
+10. List all Facebook products used to build or update your submission
+Facebook Account Login, Reactjs
+
+11. Testing Instructions for your application
+
+12. How does your submission help bring communities closer together?
+CRUMBS lets you share and collaborate on files and data in a seamless manner with a unified interface irrespective of the underlying storage. It is provider agnostic and at the end of the day just objects of information sitting across the world. There is absolutely no barrier to entry to join an existing group for sharing files or for creating a new one as all popular storage providers will be supported that exposes an API.
+In this way, communities can thrive by being in close proximity irrespective of the infrastructure or vendor.
+
+13. Select one community bonus prize that your solution fits - Drive engaging communities
+
+14. Explain how your submission addresses the community bonus prize theme that you selected
+Almost everyone would have multiple online storage accounts like a GoogleDrive or DropBox, but the amount of space being utilized would be very miniscule as compared to the actual available size. CRUMBS helps you re-imagine storage and utilize all those unused space to make it in a more productive and engagaing manner. In this day and age, content and data is king. CRUMBS lets you share and consume content seamlessly using your existing accounts in a secure and distributed way.
+It helps to build communities that would be more closely conncted, identify people that share the same taste and preferences to build a more engaging way to discover and consume data/content in a seamless manner.
