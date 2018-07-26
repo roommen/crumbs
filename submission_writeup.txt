@@ -1,5 +1,5 @@
 Submission writeup draft - of team and project
-1. Video Demo - 
+1. Video Demo - https://www.youtube.com/watch?v=inmGdKf1NCI
 
 2. File Upload - Zip all the file (source code, ppt, additional instruction docs)
 
@@ -21,6 +21,13 @@ Submission writeup draft - of team and project
 Facebook Account Login, Reactjs
 
 11. Testing Instructions for your application
+For testing it locally (on a Windows OS as of now):
+1. git clone https://github.com/roommen/crumbs.git
+2. Go to folders 'crumbs-web-ui' and 'crumbs-middleware' individually
+3. In each of those folders first run "npm install"
+4. From the crumbs-web-ui folder run "npm start &"
+5. From the crumbs-middleware run "node serve.js &"
+6. You would now be able to access the application at http://localhost:3000
 
 12. How does your submission help bring communities closer together?
 CRUMBS lets you share and collaborate on files and data in a seamless manner with a unified interface irrespective of the underlying storage. It is provider agnostic and at the end of the day just objects of information sitting across the world. There is absolutely no barrier to entry to join an existing group for sharing files or for creating a new one as all popular storage providers will be supported that exposes an API.
