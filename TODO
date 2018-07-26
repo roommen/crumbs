@@ -1,5 +1,0 @@
-1. Generate certificate from Lets Encrypt and apply to the server<br/>
-2. Create a Route 53 entry to map IP address to hostname<br/>
-3. Test integration of DropBox and Google Drive<br/>
-4. Deploy code to server from local and make it work. Check for port acces <br/>
-5. Complete all file creation and writeup for submission
